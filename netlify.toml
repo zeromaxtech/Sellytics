@@ -1,0 +1,64 @@
+﻿[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# Scheduled function: runs daily at 06:00 UTC, which is
+# 08:00 Berlin in summer (CEST = UTC+2). Scheduled functions
+# use the UTC timezone and run on published deploys only —
+# trigger them manually via "Run now" in the Netlify
+# Functions UI to test.
+[functions."daily-digest"]
+  schedule = "0 6 * * *"
+
+# Map every API route to the serverless Express function.
+# status = 200 rewrites the request in place, so the browser
+# URL stays unchanged and method, headers and body are
+# forwarded. force = true makes the rewrite win over any
+# static file with a matching name.
+[[redirects]]
+  from = "/register"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/login"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/connect-printify"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/shop-stats"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/send-digest"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/daily-tips"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/delete-account"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/run-digest"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true

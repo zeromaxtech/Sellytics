@@ -2,26 +2,309 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shop Digest — Dashboard</title>
+  <title>Sellytics — Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="auth-box">
-    <h1>Your Stores</h1>
-    <p class="subtitle">Connect a store to start getting digests.</p>
-
-    <p id="status">No stores connected yet.</p>
-
-    <button id="connectPrintifyBtn">+ Connect Printify</button>
-
-    <div id="printifyForm" style="display:none; margin-top:12px;">
-      <label for="printifyToken">Printify API Token</label>
-      <input type="text" id="printifyToken" placeholder="Paste your token here">
-      <button id="savePrintifyBtn">Save</button>
+<body class="dashboard-body">
+  <header class="topbar">
+    <div>
+      <div class="brand">Sellytics</div>
+      <div class="tagline">Your shop's hype, delivered weekly.</div>
     </div>
-  </div>
+    <div class="topbar-note">Seller dashboard</div>
+  </header>
 
-<button id="sendDigestBtn">Email me this digest now</button>
+  <main class="dashboard">
+
+    <!-- Shown while no store is connected -->
+    <section id="connectView" class="panel">
+      <h1>Your Stores</h1>
+      <p class="subtitle">Connect a store to start getting digests.</p>
+
+      <p id="status">No stores connected yet.</p>
+
+      <button id="connectPrintifyBtn" class="btn btn-primary">+ Connect Printify</button>
+
+      <div id="printifyForm" style="display:none;">
+        <label for="printifyToken">Printify API Token</label>
+        <input type="text" id="printifyToken" placeholder="Paste your token here">
+        <button id="savePrintifyBtn" class="btn btn-primary">Save</button>
+      </div>
+
+      <button id="connectEtsyBtn" disabled style="opacity:0.5; cursor:not-allowed;">
+        + Connect Etsy (pending approval)
+      </button>
+    </section>
+
+    <!-- Shown once a store is connected: that store fills the dashboard -->
+    <section id="storeView" class="panel" style="display:none;">
+      <div class="store-header">
+        <h1 id="storeName">Store</h1>
+        <span class="badge" id="storePlatform">Printify</span>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Recent orders</div>
+          <div class="stat-value" id="orderCount">—</div>
+        </div>
+      </div>
+
+      <p id="storeError" class="error-text" style="display:none;"></p>
+
+      <!-- Add another store: API key works today, shop link is coming soon -->
+      <div class="add-store">
+        <button id="addStoreBtn" class="btn">+ Add another store</button>
+        <div id="addStoreForm" style="display:none;">
+          <div class="add-store-form">
+            <div class="connect-option">
+              <h3>API key</h3>
+              <p class="hint">Connect another Printify store with its API token. Your account keeps one Printify connection, so a new token replaces the current store.</p>
+              <label for="newStoreApiKey">Printify API Token</label>
+              <input type="text" id="newStoreApiKey" placeholder="Paste your token here">
+              <button id="connectNewStoreBtn" class="btn btn-primary">Connect</button>
+            </div>
+            <div class="connect-option">
+              <h3>Shop link</h3>
+              <p class="hint">Connect by pasting your shop URL (for example an Etsy shop link).</p>
+              <label for="newStoreLink">Shop URL</label>
+              <input type="text" id="newStoreLink" placeholder="https://www.etsy.com/shop/..." disabled style="opacity:0.5; cursor:not-allowed;">
+              <button class="btn" disabled style="opacity:0.5; cursor:not-allowed;">Connect via link (coming soon)</button>
+            </div>
+          </div>
+        </div>
+        <p id="addStoreStatus" class="status-line"></p>
+      </div>
+
+      <!-- Evergreen product guidance (static, not fake live data) -->
+      <section class="insights">
+        <h2>Trending insights — what to build next</h2>
+        <p class="section-note" id="insightsNote">Evergreen guidance for print-on-demand sellers; your own store numbers are above.</p>
+        <div class="insight-grid" id="insightGrid">
+          <div class="insight-card">
+            <h3>Personalization sells</h3>
+            <p>Names, monograms and custom photos turn a generic product into a gift. Made-to-order items justify higher prices and win repeat buyers.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Bundle for bigger orders</h3>
+            <p>Pair complements (mug + coaster, tee + sticker pack). Bundles raise order value without inventing brand-new designs.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Plan seasons early</h3>
+            <p>Go live with holiday and event designs 6–8 weeks before the date — buyers shop early and listings with sales history rank better.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Go digital</h3>
+            <p>Printable downloads (planners, wall art, templates) have no shipping cost and near-full margin once designed.</p>
+          </div>
+          <div class="insight-card">
+            <h3>Niche beats generic</h3>
+            <p>A product for a specific hobby, job or fandom converts better than a "for everyone" gift — the listing speaks straight to the right buyer.</p>
+          </div>
+        </div>
+
+        <!-- Pinterest: official embeds only — no hotlinked or scraped images.
+             Fill the row by pasting pin/board URLs in PINTEREST_EMBEDS
+             in dashboard.js. -->
+        <div class="inspire">
+          <h3>Inspiration row</h3>
+          <p class="hint">Live pins and boards you feature — rendered and hosted by Pinterest.</p>
+          <p class="notice" id="pinterestNotice">This loads content from Pinterest, which may set cookies.</p>
+          <button id="loadPinterestBtn" class="btn">Load inspiration</button>
+          <div class="pin-row" id="pinRow"></div>
+          <a class="btn btn-secondary"
+             href="https://www.pinterest.com/search/pins/?q=print+on+demand+trends"
+             target="_blank" rel="noopener noreferrer">
+            Browse more on Pinterest
+          </a>
+        </div>
+      </section>
+
+      <!-- Featured T-Shirt Designs Ad / Inspiration Showcase -->
+      <section class="tshirt-showcase-section">
+        <div class="showcase-header">
+          <div>
+            <h2>🔥 Trending T-Shirt Designs &amp; POD Mockup Ideas</h2>
+            <p class="section-note">High-converting aesthetic concepts and bestseller mockups for your store.</p>
+          </div>
+          <div class="showcase-controls">
+            <span class="ad-tag">Featured Ad / Inspiration</span>
+            <button id="tshirtScrollLeft" class="scroll-arrow-btn" aria-label="Scroll left">&larr;</button>
+            <button id="tshirtScrollRight" class="scroll-arrow-btn" aria-label="Scroll right">&rarr;</button>
+          </div>
+        </div>
+
+        <div class="tshirt-scroll-container" id="tshirtScrollContainer">
+          <div class="tshirt-track">
+            
+            <!-- Card 1 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-hot">🔥 Bestseller</div>
+              <div class="tshirt-mockup mockup-dark">
+                <div class="tshirt-graphic graphic-retro">
+                  <div class="graphic-sun"></div>
+                  <div class="graphic-mountains"></div>
+                  <div class="graphic-text">STAY WILD</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Retro Mountain Horizon</h4>
+                <p class="tshirt-niche">Outdoor &amp; Camping</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">46% Margin</span>
+                  <span class="metric-pill pill-green">High Demand</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-trend">⭐ Trending</div>
+              <div class="tshirt-mockup mockup-cream">
+                <div class="tshirt-graphic graphic-botanical">
+                  <div class="graphic-flower">🌿</div>
+                  <div class="graphic-text-serif">Bloom &amp; Grow</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Minimalist Wildflower</h4>
+                <p class="tshirt-niche">Botanical &amp; Cottagecore</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">52% Margin</span>
+                  <span class="metric-pill pill-blue">Gift Niche</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-hot">⚡ Top Pick</div>
+              <div class="tshirt-mockup mockup-navy">
+                <div class="tshirt-graphic graphic-cyber">
+                  <div class="graphic-grid"></div>
+                  <div class="graphic-text-glow">NEON VIBES</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Synthwave Tokyo Skyline</h4>
+                <p class="tshirt-niche">Gaming &amp; Cyberpunk</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">49% Margin</span>
+                  <span class="metric-pill pill-purple">Gen-Z</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-trend">☕ Evergreen</div>
+              <div class="tshirt-mockup mockup-charcoal">
+                <div class="tshirt-graphic graphic-coffee">
+                  <div class="graphic-icon">☕</div>
+                  <div class="graphic-text">ESPRESSO PATRONUM</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Coffee Lover Typography</h4>
+                <p class="tshirt-niche">Food &amp; Beverage / Humor</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">44% Margin</span>
+                  <span class="metric-pill pill-orange">Viral Hit</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-hot">🌊 Seasonal</div>
+              <div class="tshirt-mockup mockup-sand">
+                <div class="tshirt-graphic graphic-wave">
+                  <div class="graphic-icon">🌊</div>
+                  <div class="graphic-text">PACIFIC SURF CLUB</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Vintage Great Wave</h4>
+                <p class="tshirt-niche">Beach &amp; Surf Aesthetic</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">50% Margin</span>
+                  <span class="metric-pill pill-green">Summer Hype</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="tshirt-card">
+              <div class="tshirt-badge badge-trend">✨ Aesthetic</div>
+              <div class="tshirt-mockup mockup-white">
+                <div class="tshirt-graphic graphic-astronomy">
+                  <div class="graphic-icon">🌙✨</div>
+                  <div class="graphic-text-serif">COSMIC SOUL</div>
+                </div>
+              </div>
+              <div class="tshirt-info">
+                <h4>Celestial Moon Phases</h4>
+                <p class="tshirt-niche">Astrology &amp; Tarot</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill">54% Margin</span>
+                  <span class="metric-pill pill-purple">High Repeat</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Reach tips for YouTube & Instagram -->
+      <section class="tips">
+        <h2>Grow your reach — YouTube &amp; Instagram</h2>
+        <p class="section-note" id="reachNote">Evergreen tactics that work for any print-on-demand shop.</p>
+        <div class="tips-columns">
+          <div class="tips-col">
+            <h3>YouTube</h3>
+            <ul id="youtubeTips">
+              <li>Show the product in use — 15–60 second demos beat talking-head videos.</li>
+              <li>Put the words buyers actually search in the title and first two description lines.</li>
+              <li>Post on the same day each week; consistency beats frequency.</li>
+              <li>End every video with one clear link to your shop.</li>
+              <li>Cut long videos into Shorts — same footage, twice the reach.</li>
+            </ul>
+          </div>
+          <div class="tips-col">
+            <h3>Instagram</h3>
+            <ul id="instagramTips">
+              <li>Lead with Reels — short video gets priority in the algorithm.</li>
+              <li>Use 5–10 focused hashtags, mixing big and niche ones.</li>
+              <li>Run polls and Q&amp;A stickers in Stories to learn what to design next.</li>
+              <li>Share behind-the-scenes: making, packing, shipping — it builds trust.</li>
+              <li>Tag your products so shoppable posts send traffic straight to checkout.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <button id="sendDigestBtn" class="btn">Email me this digest now</button>
+    </section>
+
+    <!-- Always visible: account controls -->
+    <section class="panel account-panel">
+      <h2>Account</h2>
+      <p class="hint">Permanently delete your account and all stored data. This cannot be undone.</p>
+      <button id="deleteAccountBtn" class="btn btn-danger">Delete my account and data</button>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <nav>
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/impressum.html">Impressum</a>
+    </nav>
+    <p>Support: <a href="mailto:[YOUR SUPPORT EMAIL]">[YOUR SUPPORT EMAIL]</a></p>
+    <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
+  </footer>
 
   <script src="dashboard.js"></script>
 </body>

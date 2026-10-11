@@ -2,7 +2,7 @@ from datetime import date
 
 
 def build(shop_results: list) -> str:
-    lines = [f"🛍️ Shop Digest — {date.today().isoformat()}", ""]
+    lines = [f"🛍️ Sellytics — {date.today().isoformat()}", ""]
 
     if not shop_results:
         lines.append("No stores connected yet.")

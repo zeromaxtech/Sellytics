@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shop Digest — Log In</title>
+  <title>Sellytics — Log In</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-body">
 
   <div class="auth-box">
-    <h1>Shop Digest</h1>
+    <h1>Sellytics</h1>
     <p class="subtitle">Weekly updates from your Etsy & Printify stores.</p>
 
     <form id="authForm">
@@ -18,12 +18,34 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
 
-      <button type="submit" id="loginBtn">Log In</button>
+      <!-- formnovalidate: logging in must not require the consent
+           checkbox, which is required for registration only -->
+      <button type="submit" id="loginBtn" formnovalidate>Log In</button>
       <button type="button" id="registerBtn">Register instead</button>
+
+      <!-- Starts UNCHECKED and is required: registration is blocked
+           (client-side and server-side) until it is ticked -->
+      <label class="consent" for="agreeTerms">
+        <input type="checkbox" id="agreeTerms" required>
+        <span>I agree to the
+          <a href="/terms.html">Terms</a> and
+          <a href="/privacy.html">Privacy Policy</a>
+        </span>
+      </label>
     </form>
 
     <p id="message"></p>
   </div>
+
+  <footer class="site-footer">
+    <nav>
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/impressum.html">Impressum</a>
+    </nav>
+    <p>Support: <a href="mailto:[YOUR SUPPORT EMAIL]">[YOUR SUPPORT EMAIL]</a></p>
+    <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
