@@ -415,6 +415,44 @@ app.post('/run-digest', async (req, res) => {
   res.json({ message: `Digest run finished — ${result.sent} digest(s) sent` });
 });
 
+// ---------- Support Contact endpoint ----------
+// Accepts messages sent from the support modal/forms, displaying
+// 'supportselltyics@gmail.com' to users while securely delivering to
+// the destination mailbox without exposing it on the client.
+app.post('/contact', async (req, res) => {
+  const { name, email, subject, message } = req.body || {};
+
+  if (!email || !message) {
+    return res.status(400).json({ message: 'Email and message are required.' });
+  }
+
+  const destination = process.env.SUPPORT_DESTINATION_EMAIL || 'nike64813@gmail.com';
+  const displaySender = 'supportselltyics@gmail.com';
+
+  try {
+    await transporter.sendMail({
+      from: `"${displaySender}" <${process.env.SMTP_USER}>`,
+      replyTo: email,
+      to: destination,
+      subject: `[Sellytics Support] ${subject || 'New Support Message'} from ${name || email}`,
+      text: `Support Message Received:
+-------------------------
+From: ${name || 'Anonymous'} <${email}>
+Reply-To: ${email}
+Public Support Address: ${displaySender}
+
+Message:
+${message}
+`,
+    });
+
+    res.json({ message: 'Thank you! Your message has been sent to support.' });
+  } catch (err) {
+    console.error('Contact email sending error:', err.message);
+    res.status(500).json({ message: 'Could not send message. Please try again later.' });
+  }
+});
+
 // ---------- Local development vs Netlify serverless ----------
 // On Netlify the daily job (06:00 UTC) is a scheduled function
 // (netlify/functions/daily-digest.js, schedule in netlify.toml) —

@@ -137,54 +137,6 @@ function renderTipList(id, items) {
     .join('');
 }
 
-// --- Pinterest inspiration row ---
-// Paste the public pin or board URLs you want to feature here.
-// They render as official Pinterest embeds (live, hosted by
-// Pinterest). Nothing is hotlinked or rehosted on this site.
-const PINTEREST_EMBEDS = [
-  // Examples (replace with your own):
-  // 'https://www.pinterest.com/pin/123456789012345678/',
-  // 'https://www.pinterest.com/yourname/print-on-demand-ideas/',
-];
-
-// Builds the embed slots and loads Pinterest's official widget
-// script. Only ever called after the user opts in, because the
-// widget may set cookies.
-function renderPinterestEmbeds() {
-  const row = document.getElementById('pinRow');
-
-  if (!PINTEREST_EMBEDS.length) {
-    row.innerHTML =
-      '<p class="hint">Empty for now — paste public Pinterest pin or board ' +
-      'URLs into PINTEREST_EMBEDS in dashboard.js to fill this row.</p>';
-    return;
-  }
-
-  row.innerHTML = PINTEREST_EMBEDS.map((url) => {
-    const kind = url.includes('/pin/') ? 'embedPin' : 'embedBoard';
-    return `<div class="pin-slot"><a data-pin-do="${kind}" href="${url}"></a></div>`;
-  }).join('');
-
-  // Load Pinterest's official widget script once, after the
-  // embed slots exist in the DOM.
-  if (!document.getElementById('pinitJs')) {
-    const script = document.createElement('script');
-    script.id = 'pinitJs';
-    script.async = true;
-    script.defer = true;
-    script.src = 'https://assets.pinterest.com/js/pinit.js';
-    document.head.appendChild(script);
-  }
-}
-
-// Opt-in gate: pinit.js is NOT loaded on page load. The user sees
-// the cookie notice and chooses to load the embeds.
-document.getElementById('loadPinterestBtn').addEventListener('click', () => {
-  document.getElementById('pinterestNotice').style.display = 'none';
-  document.getElementById('loadPinterestBtn').style.display = 'none';
-  renderPinterestEmbeds();
-});
-
 loadDailyTips();
 
 // --- Delete account and data ---

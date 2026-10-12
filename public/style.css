@@ -229,27 +229,6 @@ button {
 }
 .btn-secondary:hover { background: #f8fafc; }
 
-/* ---------- Pinterest inspiration row ---------- */
-.inspire { margin-top: 20px; }
-.inspire h3 { font-size: 15px; margin: 0 0 4px; }
-
-.pin-row {
-  display: flex;
-  gap: 14px;
-  margin-top: 12px;
-  padding: 4px 2px 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
-.pin-slot {
-  flex: 0 0 auto;
-  width: 240px;
-  scroll-snap-align: start;
-}
-
-.pin-slot iframe { max-width: 100%; }
-
 /* ---------- Auth page layout (login box + footer) ---------- */
 body.auth-body {
   display: flex;
@@ -460,14 +439,37 @@ body.legal-body {
 
 .badge-hot { background: #fee2e2; color: #991b1b; }
 .badge-trend { background: #e0e7ff; color: #3730a3; }
+.badge-pin { background: #e60023; color: #ffffff; }
+
+a.tshirt-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
 
 .tshirt-mockup {
-  height: 180px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   border-bottom: 1px solid #f1f5f9;
+  overflow: hidden;
+}
+
+.pin-mockup {
+  background: #f8fafc;
+}
+
+.pin-mockup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tshirt-card:hover .pin-mockup img {
+  transform: scale(1.06);
 }
 
 .mockup-dark { background: #1e293b; color: #f8fafc; }
@@ -565,4 +567,126 @@ body.legal-body {
 .pill-blue { background: #e0f2fe; color: #0369a1; }
 .pill-purple { background: #f3e8ff; color: #6b21a8; }
 .pill-orange { background: #ffedd5; color: #9a3412; }
+
+/* ---------- Contact Support Modal ---------- */
+.support-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.support-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.support-modal {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 480px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+}
+
+.support-modal-backdrop.active .support-modal {
+  transform: translateY(0);
+}
+
+.support-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.support-modal-close:hover {
+  color: #0f172a;
+}
+
+.support-modal h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.support-modal-info {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 18px;
+}
+
+.support-modal-info strong {
+  color: #0f172a;
+}
+
+.support-modal form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.support-modal form input,
+.support-modal form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.support-modal form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.support-modal form button[type="submit"] {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.support-modal form button[type="submit"]:hover {
+  background: #1e293b;
+}
+
+.support-modal-status {
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.support-modal-status.success { color: #166534; }
+.support-modal-status.error { color: #b00020; }
 

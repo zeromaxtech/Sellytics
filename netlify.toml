@@ -1,4 +1,4 @@
-﻿[build]
+[build]
   publish = "public"
   functions = "netlify/functions"
 
@@ -59,6 +59,12 @@
 
 [[redirects]]
   from = "/run-digest"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contact"
   to = "/.netlify/functions/api"
   status = 200
   force = true

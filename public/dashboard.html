@@ -76,66 +76,102 @@
         <p id="addStoreStatus" class="status-line"></p>
       </div>
 
-      <!-- Evergreen product guidance (static, not fake live data) -->
-      <section class="insights">
-        <h2>Trending insights — what to build next</h2>
-        <p class="section-note" id="insightsNote">Evergreen guidance for print-on-demand sellers; your own store numbers are above.</p>
-        <div class="insight-grid" id="insightGrid">
-          <div class="insight-card">
-            <h3>Personalization sells</h3>
-            <p>Names, monograms and custom photos turn a generic product into a gift. Made-to-order items justify higher prices and win repeat buyers.</p>
-          </div>
-          <div class="insight-card">
-            <h3>Bundle for bigger orders</h3>
-            <p>Pair complements (mug + coaster, tee + sticker pack). Bundles raise order value without inventing brand-new designs.</p>
-          </div>
-          <div class="insight-card">
-            <h3>Plan seasons early</h3>
-            <p>Go live with holiday and event designs 6–8 weeks before the date — buyers shop early and listings with sales history rank better.</p>
-          </div>
-          <div class="insight-card">
-            <h3>Go digital</h3>
-            <p>Printable downloads (planners, wall art, templates) have no shipping cost and near-full margin once designed.</p>
-          </div>
-          <div class="insight-card">
-            <h3>Niche beats generic</h3>
-            <p>A product for a specific hobby, job or fandom converts better than a "for everyone" gift — the listing speaks straight to the right buyer.</p>
-          </div>
-        </div>
-
-        <!-- Pinterest: official embeds only — no hotlinked or scraped images.
-             Fill the row by pasting pin/board URLs in PINTEREST_EMBEDS
-             in dashboard.js. -->
-        <div class="inspire">
-          <h3>Inspiration row</h3>
-          <p class="hint">Live pins and boards you feature — rendered and hosted by Pinterest.</p>
-          <p class="notice" id="pinterestNotice">This loads content from Pinterest, which may set cookies.</p>
-          <button id="loadPinterestBtn" class="btn">Load inspiration</button>
-          <div class="pin-row" id="pinRow"></div>
-          <a class="btn btn-secondary"
-             href="https://www.pinterest.com/search/pins/?q=print+on+demand+trends"
-             target="_blank" rel="noopener noreferrer">
-            Browse more on Pinterest
-          </a>
-        </div>
-      </section>
-
-      <!-- Featured T-Shirt Designs Ad / Inspiration Showcase -->
+      <!-- Featured T-Shirt Designs Ad & Inspiration Showcase -->
       <section class="tshirt-showcase-section">
         <div class="showcase-header">
           <div>
             <h2>🔥 Trending T-Shirt Designs &amp; POD Mockup Ideas</h2>
-            <p class="section-note">High-converting aesthetic concepts and bestseller mockups for your store.</p>
+            <p class="section-note" id="showcaseNote">High-converting aesthetic concepts, Pinterest trends, and bestseller mockups for your store.</p>
           </div>
           <div class="showcase-controls">
-            <span class="ad-tag">Featured Ad / Inspiration</span>
+            <span class="ad-tag">Featured Inspiration / Ad</span>
             <button id="tshirtScrollLeft" class="scroll-arrow-btn" aria-label="Scroll left">&larr;</button>
             <button id="tshirtScrollRight" class="scroll-arrow-btn" aria-label="Scroll right">&rarr;</button>
           </div>
         </div>
 
         <div class="tshirt-scroll-container" id="tshirtScrollContainer">
-          <div class="tshirt-track">
+          <div class="tshirt-track" id="tshirtTrack">
+
+            <!-- Pinterest Design 1 -->
+            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/4604789963363929728/" target="_blank" rel="noopener noreferrer">
+              <div class="tshirt-badge badge-pin">📌 Pinterest Trend</div>
+              <div class="tshirt-mockup pin-mockup">
+                <img src="https://i.pinimg.com/736x/6a/a8/19/6aa819396a09a65ffed5b2f2505f3cc3.jpg" alt="Blondies London: Skull Design" loading="lazy">
+              </div>
+              <div class="tshirt-info">
+                <h4>Blondies London Skull</h4>
+                <p class="tshirt-niche">Streetwear &amp; Vintage Rock</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill pill-purple">55% Margin</span>
+                  <span class="metric-pill pill-green">High Demand</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Pinterest Design 2 -->
+            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/675610381650524429/" target="_blank" rel="noopener noreferrer">
+              <div class="tshirt-badge badge-pin">📌 Pinterest Trend</div>
+              <div class="tshirt-mockup pin-mockup">
+                <img src="https://i.pinimg.com/736x/7c/fb/9f/7cfb9f0f17692cdb7e9f85d0e85f9fc1.jpg" alt="Urban Aesthetic Illustration" loading="lazy">
+              </div>
+              <div class="tshirt-info">
+                <h4>Urban Vector Illustration</h4>
+                <p class="tshirt-niche">Anime &amp; Cyber Street</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill pill-blue">52% Margin</span>
+                  <span class="metric-pill pill-orange">Viral Hit</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Pinterest Design 3 -->
+            <a class="tshirt-card pin-card" href="http://pinterest.com/pin/584271751692840579/" target="_blank" rel="noopener noreferrer">
+              <div class="tshirt-badge badge-pin">📌 Pinterest Trend</div>
+              <div class="tshirt-mockup pin-mockup">
+                <img src="https://i.pinimg.com/736x/f8/f5/e2/f8f5e22089a0e26200941ca258436b9c.jpg" alt="Graphic Artwork Tee" loading="lazy">
+              </div>
+              <div class="tshirt-info">
+                <h4>Dark Vintage Graphic</h4>
+                <p class="tshirt-niche">Y2K &amp; Grunge Graphic</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill pill-purple">50% Margin</span>
+                  <span class="metric-pill pill-green">Bestseller</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Pinterest Design 4 -->
+            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/503558802107444760/" target="_blank" rel="noopener noreferrer">
+              <div class="tshirt-badge badge-pin">📌 Pinterest Trend</div>
+              <div class="tshirt-mockup pin-mockup">
+                <img src="https://i.pinimg.com/736x/1c/61/10/1c611087706f0f0c562e89bd64d59ec2.jpg" alt="Glowing Filter Ghosts" loading="lazy">
+              </div>
+              <div class="tshirt-info">
+                <h4>Spooky Glowing Ghosts</h4>
+                <p class="tshirt-niche">Halloween &amp; Cute Horror</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill pill-orange">58% Margin</span>
+                  <span class="metric-pill pill-blue">Seasonal Peak</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Pinterest Design 5 -->
+            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/153333562309965707/" target="_blank" rel="noopener noreferrer">
+              <div class="tshirt-badge badge-pin">📌 Pinterest Trend</div>
+              <div class="tshirt-mockup pin-mockup">
+                <img src="https://i.pinimg.com/736x/bb/9f/46/bb9f46778eb5dd32ac3d8bd2f6319bdc.jpg" alt="Halloween Spooky Backgrounds" loading="lazy">
+              </div>
+              <div class="tshirt-info">
+                <h4>Spooky Pastel Collage</h4>
+                <p class="tshirt-niche">Autumn Aesthetic &amp; POD</p>
+                <div class="tshirt-metrics">
+                  <span class="metric-pill pill-green">54% Margin</span>
+                  <span class="metric-pill pill-purple">High Repeat</span>
+                </div>
+              </div>
+            </a>
             
             <!-- Card 1 -->
             <div class="tshirt-card">
@@ -302,10 +338,11 @@
       <a href="/terms.html">Terms</a> ·
       <a href="/impressum.html">Impressum</a>
     </nav>
-    <p>Support: <a href="mailto:[YOUR SUPPORT EMAIL]">[YOUR SUPPORT EMAIL]</a></p>
+    <p>Support: <a href="mailto:supportselltyics@gmail.com" data-support-trigger="true">supportselltyics@gmail.com</a></p>
     <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
   </footer>
 
   <script src="dashboard.js"></script>
+  <script src="support.js"></script>
 </body>
 </html>
