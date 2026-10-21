@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Terms of Service — Sellytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Sellytics">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="legal-body">
@@ -22,10 +30,11 @@
     you agree to them.</p>
 
     <h2>Using your connected stores</h2>
-    <p>Sellytics uses your Printify API token for <strong>read-only
-    access</strong>: it reads your shop details and order counts to
-    show your dashboard and build the digest email. It never lists,
-    edits, or publishes anything in your store.</p>
+    <p>Sellytics uses your Printify API token to read your shop details
+    and order data for the dashboard and digest email. It does not list,
+    edit, or publish products. If you click <strong>Cancel order</strong>,
+    Sellytics sends a cancellation request to Printify for that order;
+    Printify may reject it, and cancellation cannot be undone.</p>
 
     <h2>Fair use</h2>
     <ul>
@@ -66,5 +75,6 @@
     <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
   </footer>
   <script src="support.js"></script>
+  <script src="pwa.js"></script>
 </body>
 </html>

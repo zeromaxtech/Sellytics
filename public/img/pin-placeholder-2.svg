@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder design image 2</title>
+  <desc id="desc">Replace this local placeholder with your own product mockup.</desc>
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g2)"/>
+  <circle cx="400" cy="250" r="110" fill="#ffffff" opacity="0.14"/>
+  <text x="400" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="700" fill="#ffffff">S</text>
+  <text x="400" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#ffffff">YOUR DESIGN HERE</text>
+  <text x="400" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#ecfeff">Local placeholder — replace with your own image</text>
+</svg>

@@ -68,3 +68,34 @@
   to = "/.netlify/functions/api"
   status = 200
   force = true
+
+# Live order feed, webhooks, push subscriptions and public client config.
+[[redirects]]
+  from = "/public-config"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/orders"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/orders/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/webhooks/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/push/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
