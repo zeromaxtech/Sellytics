@@ -11,6 +11,7 @@ create table if not exists public.daily_tips (
 -- so anon/authenticated roles need SELECT. Tips contain no user data.
 alter table public.daily_tips enable row level security;
 
+drop policy if exists "daily tips are readable" on public.daily_tips;
 create policy "daily tips are readable"
   on public.daily_tips
   for select
