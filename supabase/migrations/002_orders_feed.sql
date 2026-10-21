@@ -1,6 +1,51 @@
 -- Sellytics: live order feed for Printify webhooks.
 -- Run once in the Supabase SQL editor (after 001_daily_tips.sql).
 
+-- Fail early with an actionable message instead of creating a feed that
+-- cannot be joined to the existing auth-backed connection table.
+do $$
+declare
+  missing text;
+begin
+  if not exists (
+    select 1
+    from information_schema.tables
+    where table_schema = 'public'
+      and table_name = 'store_connections'
+  ) then
+    raise exception
+      '002_orders_feed requires public.store_connections. Create the app schema first.';
+  end if;
+
+  select string_agg(cols.c, ', ')
+  into missing
+  from unnest(array['user_id', 'platform', 'encrypted_token']) as cols(c)
+  where not exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'store_connections'
+      and column_name = cols.c
+  );
+
+  if missing is not null then
+    raise exception
+      '002_orders_feed: store_connections is missing columns: %', missing;
+  end if;
+
+  if not exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'store_connections'
+      and column_name = 'user_id'
+      and udt_name = 'uuid'
+  ) then
+    raise exception
+      '002_orders_feed: store_connections.user_id must be uuid to match auth.users and orders_feed.user_id.';
+  end if;
+end $$;
+
 -- Webhooks arrive with a shop_id, not a user_id. Save the shop id when
 -- the user connects / loads their dashboard so we can route events.
 alter table public.store_connections
