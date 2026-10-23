@@ -134,20 +134,37 @@ async function contactRateLimiter(req, res, next) {
   next();
 }
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY
-);
+function getAnonKey() {
+  return process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
+}
+
+let _supabaseClient = null;
+function getSupabaseClient() {
+  const url = process.env.SUPABASE_URL;
+  const key = getAnonKey();
+  if (!url || !key) {
+    throw new Error(
+      `Missing Supabase configuration: SUPABASE_URL=${url ? 'defined' : 'MISSING'}, SUPABASE_PUBLISHABLE_KEY/ANON_KEY=${key ? 'defined' : 'MISSING'}`
+    );
+  }
+  if (!_supabaseClient) {
+    _supabaseClient = createClient(url, key);
+  }
+  return _supabaseClient;
+}
+
+// Lazy Supabase client proxy prevents fatal startup crashes if env vars are unset
+const supabase = new Proxy({}, {
+  get(target, prop) {
+    return getSupabaseClient()[prop];
+  },
+});
 
 function getAdminClient() {
   const serviceRoleKey =
     process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
   if (!serviceRoleKey) return null;
   return createClient(process.env.SUPABASE_URL, serviceRoleKey);
-}
-
-function getAnonKey() {
-  return process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
 }
 
 function getUserClient(accessToken) {
@@ -762,27 +779,59 @@ async function generateDailyTips() {
 // ---------- Routes ----------
 
 app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password, agreeTerms } = req.body || {};
 
-  // Consent gate: the register form's checkbox starts unchecked,
-  // so registration is blocked (client- and server-side) until
-  // the user ticks it.
-  if (!req.body.agreeTerms) {
-    return res.status(400).json({
-      message: 'Please agree to the Terms and Privacy Policy first.',
+    // Consent gate: the register form's checkbox starts unchecked,
+    // so registration is blocked (client- and server-side) until
+    // the user ticks it.
+    if (!agreeTerms) {
+      return res.status(400).json({
+        message: 'Please agree to the Terms and Privacy Policy first.',
+      });
+    }
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      logEvent('warn', 'Registration failed', { email, error: error.message });
+      return res.status(error.status || 400).json({ message: error.message });
+    }
+
+    logEvent('info', 'Registration successful', { email });
+    return res.json({ message: 'Registered! Check your email to confirm.' });
+  } catch (err) {
+    logEvent('error', 'Unhandled error in /register', { error: err.message, stack: err.stack });
+    return res.status(500).json({
+      message: err.message || 'Internal server error during registration',
     });
   }
-
-  const { data, error } = await supabase.auth.signUp({ email, password });
-  if (error) return res.status(400).json({ message: error.message });
-  res.json({ message: 'Registered! Check your email to confirm.' });
 });
 
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return res.status(400).json({ message: error.message });
-  res.json({ message: 'Logged in', session: data.session });
+  try {
+    const { email, password } = req.body || {};
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      logEvent('warn', 'Login failed', { email, error: error.message });
+      return res.status(error.status || 401).json({ message: error.message });
+    }
+
+    logEvent('info', 'Login successful', { userId: data.user?.id });
+    return res.json({ message: 'Logged in', session: data.session });
+  } catch (err) {
+    logEvent('error', 'Unhandled error in /login', { error: err.message, stack: err.stack });
+    return res.status(500).json({
+      message: err.message || 'Internal server error during login',
+    });
+  }
 });
 
 app.post('/connect-printify', async (req, res) => {
