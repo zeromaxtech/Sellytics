@@ -1,4 +1,4 @@
-﻿// Support modal helper injected across site pages
+// Support modal helper injected across site pages
 (function() {
   function initSupportModal() {
     // Only inject once
@@ -60,7 +60,7 @@
     });
 
     // Intercept clicks on any support links or mailto buttons
-    document.querySelectorAll('a[href*="supportselltyics"], a[data-support-trigger="true"]').forEach((link) => {
+    document.querySelectorAll('a[href*="support.sellytics"], a[href*="supportselltyics"], a[data-support-trigger="true"]').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         openModal();

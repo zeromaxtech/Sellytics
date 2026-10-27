@@ -957,8 +957,11 @@ async function sendDigestEmail(userClient, user) {
   const shopData = await fetchShopData(userClient, user.id);
   if (!shopData) return { message: 'No store connected yet', emailed: false };
 
+  const senderEmail = process.env.SUPPORT_FROM_EMAIL || 'support.sellytics@gmail.com';
+
   await transporter.sendMail({
-    from: process.env.SMTP_USER,
+    from: `"Sellytics" <${senderEmail}>`,
+    replyTo: senderEmail,
     to: user.email,
     subject: `Sellytics — ${shopData.shop.title}`,
     text: `Your shop "${shopData.shop.title}" has ${shopData.orderCount} recent orders.`,
@@ -1138,7 +1141,7 @@ app.post('/contact', contactRateLimiter, async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"${displaySender}" <${process.env.SMTP_USER}>`,
+      from: `"Sellytics Support" <${displaySender}>`,
       replyTo: email,
       to: destination,
       subject: `[Sellytics Support] ${subject || 'New Support Message'} from ${name || email}`,
