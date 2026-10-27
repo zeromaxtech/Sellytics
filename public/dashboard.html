@@ -16,11 +16,17 @@
 </head>
 <body class="dashboard-body">
   <header class="topbar">
-    <div>
-      <div class="brand">Sellytics</div>
-      <div class="tagline">Your shop's hype, delivered weekly.</div>
+    <div class="brand-group">
+      <img src="/img/logo.jpg" alt="Sellytics Logo" class="topbar-logo">
+      <div>
+        <div class="brand">Sellytics</div>
+        <div class="tagline">Your shop's hype, delivered weekly.</div>
+      </div>
     </div>
-    <div class="topbar-note">Seller dashboard</div>
+    <div class="topbar-actions">
+      <span class="topbar-note" id="userEmailBadge">Seller dashboard</span>
+      <button id="logoutBtn" class="btn btn-logout" type="button" title="Sign out of Sellytics">Log Out</button>
+    </div>
   </header>
 
   <main class="dashboard">
@@ -369,9 +375,13 @@
 
     <!-- Always visible: account controls -->
     <section class="panel account-panel">
-      <h2>Account</h2>
-      <p class="hint">Permanently delete your account and all stored data. This cannot be undone.</p>
-      <button id="deleteAccountBtn" class="btn btn-danger">Delete my account and data</button>
+      <h2>Account Settings</h2>
+      <p class="hint">Manage your active session or store connection.</p>
+      <div class="account-actions">
+        <button id="accountLogoutBtn" class="btn btn-secondary" type="button">Log Out</button>
+        <button id="deleteAccountBtn" class="btn btn-danger" type="button">Delete my account and data</button>
+      </div>
+      <p class="hint" style="font-size: 11px; margin-top: 10px; color: #94a3b8;">Deleting your account permanently removes your Printify credentials and order alerts.</p>
     </section>
 
   </main>

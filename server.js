@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const express = require('express');
@@ -777,6 +778,14 @@ async function generateDailyTips() {
 }
 
 // ---------- Routes ----------
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.post('/register', async (req, res) => {
   try {

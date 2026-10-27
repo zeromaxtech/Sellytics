@@ -48,8 +48,38 @@ button {
   font-size: 14px;
 }
 
-#loginBtn { background: #222; color: white; }
-#registerBtn { background: #eee; color: #333; }
+#loginBtn { background: #0f172a; color: white; }
+#loginBtn:hover { background: #1e293b; }
+#registerBtn, #registerSubmitBtn { background: #0f172a; color: white; }
+#registerSubmitBtn:hover { background: #1e293b; }
+
+.auth-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.auth-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.auth-switch {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 13px;
+  color: #64748b;
+}
+.auth-link {
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 4px;
+}
+.auth-link:hover {
+  color: #3b82f6;
+}
 
 #message { color: #b00020; font-size: 13px; margin-top: 10px; }
 
@@ -62,6 +92,45 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topbar-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.btn-logout {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-logout:hover {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #94a3b8;
+}
+
+.account-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
 }
 
 .brand { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }

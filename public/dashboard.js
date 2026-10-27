@@ -590,6 +590,19 @@ function renderTipList(id, items) {
 
 loadDailyTips();
 
+// --- Log out ---
+function logoutUser() {
+  localStorage.removeItem('access_token');
+  sessionStorage.clear();
+  window.location.href = '/index.html';
+}
+
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
+
+const accountLogoutBtn = document.getElementById('accountLogoutBtn');
+if (accountLogoutBtn) accountLogoutBtn.addEventListener('click', logoutUser);
+
 // --- Delete account and data ---
 document.getElementById('deleteAccountBtn').addEventListener('click', async () => {
   if (!confirm('Delete your account and all stored data? This cannot be undone.')) return;
