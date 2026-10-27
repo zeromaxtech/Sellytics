@@ -1136,7 +1136,7 @@ app.post('/contact', contactRateLimiter, async (req, res) => {
     return res.status(400).json({ message: 'Email and message are required.' });
   }
 
-  const destination = process.env.SUPPORT_DESTINATION_EMAIL || 'nike64813@gmail.com';
+  const destination = process.env.SUPPORT_DESTINATION_EMAIL || process.env.SMTP_USER;
   const displaySender = 'support.sellytics@gmail.com';
 
   try {
