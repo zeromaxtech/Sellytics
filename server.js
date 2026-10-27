@@ -1124,7 +1124,7 @@ app.post('/run-digest', async (req, res) => {
 
 // ---------- Support Contact endpoint ----------
 // Accepts messages sent from the support modal/forms, displaying
-// 'supportselltyics@gmail.com' to users while securely delivering to
+// 'support.sellytics@gmail.com' to users while securely delivering to
 // the destination mailbox without exposing it on the client.
 app.post('/contact', contactRateLimiter, async (req, res) => {
   const { name, email, subject, message } = req.body || {};
@@ -1134,7 +1134,7 @@ app.post('/contact', contactRateLimiter, async (req, res) => {
   }
 
   const destination = process.env.SUPPORT_DESTINATION_EMAIL || 'nike64813@gmail.com';
-  const displaySender = 'supportselltyics@gmail.com';
+  const displaySender = 'support.sellytics@gmail.com';
 
   try {
     await transporter.sendMail({

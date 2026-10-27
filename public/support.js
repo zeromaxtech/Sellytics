@@ -9,7 +9,7 @@
         <div class="support-modal">
           <button type="button" class="support-modal-close" id="supportModalCloseBtn" aria-label="Close">&times;</button>
           <h2 id="supportModalTitle">Contact Support</h2>
-          <p class="support-modal-info">Official address: <strong>supportselltyics@gmail.com</strong></p>
+          <p class="support-modal-info">Official address: <strong>support.sellytics@gmail.com</strong></p>
           <form id="supportModalForm">
             <label for="supportName">Your Name</label>
             <input type="text" id="supportName" placeholder="Alex Seller" required>
