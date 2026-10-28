@@ -5,11 +5,12 @@
  * headers and cross-origin requests are always network-only, so a stale
  * cache can never show another user's data.
  */
-const CACHE_NAME = 'sellytics-shell-v1';
+const CACHE_NAME = 'sellytics-shell-v2';
 
 const APP_SHELL = [
   '/',
   '/index.html',
+  '/register.html',
   '/dashboard.html',
   '/privacy.html',
   '/terms.html',
@@ -22,11 +23,12 @@ const APP_SHELL = [
   '/manifest.webmanifest',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
-  '/img/pin-placeholder-1.svg',
-  '/img/pin-placeholder-2.svg',
-  '/img/pin-placeholder-3.svg',
-  '/img/pin-placeholder-4.svg',
-  '/img/pin-placeholder-5.svg',
+  '/img/logo.jpg',
+  '/img/pin-1.jpg',
+  '/img/pin-2.jpg',
+  '/img/pin-3.jpg',
+  '/img/pin-4.jpg',
+  '/img/pin-5.jpg',
 ];
 
 const APP_SHELL_PATHS = new Set(
