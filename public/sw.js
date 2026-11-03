@@ -5,7 +5,7 @@
  * headers and cross-origin requests are always network-only, so a stale
  * cache can never show another user's data.
  */
-const CACHE_NAME = 'sellytics-shell-v2';
+const CACHE_NAME = 'sellytics-shell-v3';
 
 const APP_SHELL = [
   '/',
@@ -16,6 +16,7 @@ const APP_SHELL = [
   '/terms.html',
   '/impressum.html',
   '/style.css',
+  '/neumorphic.css',
   '/app.js',
   '/dashboard.js',
   '/support.js',

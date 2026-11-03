@@ -4,6 +4,40 @@ if (!accessToken) {
   window.location.href = '/index.html';
 }
 
+// Populate user profile info from JWT
+try {
+  const tokenParts = accessToken.split('.');
+  if (tokenParts.length >= 2) {
+    const payload = JSON.parse(atob(tokenParts[1].replace(/-/g, '+').replace(/_/g, '/')));
+    const email = payload.email || 'seller@sellytics.com';
+    const initial = email.charAt(0).toUpperCase();
+    const name = email.split('@')[0];
+
+    const userEmailBadge = document.getElementById('userEmailBadge');
+    if (userEmailBadge) userEmailBadge.textContent = email;
+
+    const userQuickName = document.getElementById('userQuickName');
+    if (userQuickName) userQuickName.textContent = name;
+
+    const welcomeGreeting = document.getElementById('welcomeGreeting');
+    if (welcomeGreeting) welcomeGreeting.textContent = `Welcome back, ${name}`;
+
+    const panelUserName = document.getElementById('panelUserName');
+    if (panelUserName) panelUserName.textContent = name;
+
+    const panelUserEmail = document.getElementById('panelUserEmail');
+    if (panelUserEmail) panelUserEmail.textContent = email;
+
+    const userAvatarSmall = document.getElementById('userAvatarSmall');
+    if (userAvatarSmall) userAvatarSmall.textContent = initial;
+
+    const userAvatarBig = document.getElementById('userAvatarBig');
+    if (userAvatarBig) userAvatarBig.textContent = initial;
+  }
+} catch (e) {
+  console.warn('Could not parse user session:', e);
+}
+
 const connectView = document.getElementById('connectView');
 const storeView = document.getElementById('storeView');
 const statusEl = document.getElementById('status');
