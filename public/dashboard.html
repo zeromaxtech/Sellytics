@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sellytics — Neumorphic Analytics Dashboard</title>
+  <title>Sellytics — Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#E0E5EC">
   <meta name="mobile-web-app-capable" content="yes">
@@ -16,94 +16,100 @@
 </head>
 <body>
 
-  <div class="app-layout">
+  <!-- Max-width 1440px Centered Application Shell -->
+  <div class="app-wrapper">
 
     <!-- ====================================================================
-         1. LEFT SIDEBAR NAVIGATION (~260px)
+         1. FIXED LEFT SIDEBAR (260px)
          ==================================================================== -->
-    <aside class="sidebar-nav">
+    <aside class="app-sidebar">
       <div>
-        <!-- App Logo & Branding -->
+        <!-- Brand Logo & Title -->
         <div class="sidebar-brand">
-          <div class="brand-badge">
+          <div class="brand-icon-circle">
             <img src="/img/logo.jpg" alt="Sellytics Logo">
           </div>
-          <div class="brand-info">
+          <div class="brand-titles">
             <h2>Sellytics</h2>
-            <p>Sales Analytics Hub</p>
+            <p>POD Analytics &amp; Digests</p>
           </div>
         </div>
 
-        <!-- Primary Nav Menu -->
-        <div class="sidebar-section-title">Navigation</div>
-        <ul class="nav-list">
-          <li class="nav-item active">
-            <a href="#overview">
-              <div class="nav-item-left">
-                <!-- Dashboard / Layout Grid Icon -->
+        <!-- Primary Nav Links -->
+        <div class="sidebar-nav-title">Menu</div>
+        <ul class="sidebar-nav-list">
+          <li>
+            <a href="#overview" class="nav-link active">
+              <div class="nav-link-left">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                 </svg>
-                <span>Dashboard Overview</span>
+                <span>Dashboard</span>
               </div>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#analytics">
-              <div class="nav-item-left">
-                <!-- Chart Bar Icon -->
+          <li>
+            <a href="#analytics" class="nav-link">
+              <div class="nav-link-left">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                 </svg>
-                <span>Analytics &amp; Reports</span>
+                <span>Analytics</span>
               </div>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#orders">
-              <div class="nav-item-left">
-                <!-- Shopping Bag Icon -->
+          <li>
+            <a href="#ordersSection" class="nav-link">
+              <div class="nav-link-left">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                 </svg>
                 <span>Store Orders</span>
               </div>
-              <span class="nav-badge" id="navLiveOrderBadge">Live</span>
+              <span class="nav-pill-badge">Live</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#inspiration">
-              <div class="nav-item-left">
-                <!-- Sparkles / Fire Icon -->
+          <li>
+            <a href="#inspiration" class="nav-link">
+              <div class="nav-link-left">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
                 </svg>
-                <span>POD Inspiration</span>
+                <span>POD Trends</span>
               </div>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#tips">
-              <div class="nav-item-left">
-                <!-- Book / Light Bulb Icon -->
+          <li>
+            <a href="#playbook" class="nav-link">
+              <div class="nav-link-left">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
-                <span>Seller Playbook</span>
+                <span>Playbook</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#supportSection" class="nav-link">
+              <div class="nav-link-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <span>Support</span>
               </div>
             </a>
           </li>
         </ul>
       </div>
 
-      <!-- Bottom System Actions -->
-      <div class="sidebar-footer">
-        <div class="system-status-indicator">
-          <div class="status-dot-pulse"></div>
+      <!-- Bottom System Controls -->
+      <div class="sidebar-bottom">
+        <div class="live-indicator">
+          <div class="dot-pulse"></div>
           <span>Realtime Feed Active</span>
         </div>
         <button id="logoutBtn" class="neu-btn neu-btn-danger" style="width: 100%; justify-content: center;">
-          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg style="width:15px;height:15px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
           </svg>
           <span>Sign Out</span>
@@ -112,302 +118,270 @@
     </aside>
 
     <!-- ====================================================================
-         2. MAIN CONTENT AREA (Fluid Center Grid)
+         2. FLUID MAIN CONTENT AREA
          ==================================================================== -->
-    <main class="main-content">
+    <main class="app-main">
 
       <!-- Top Header Bar -->
-      <header class="top-header">
-        <!-- Inset Search Bar -->
-        <div class="search-container">
-          <svg class="search-icon-left" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input type="text" class="search-input" placeholder="Search orders, POD trends, keywords..." id="globalSearchInput">
-          <span class="search-shortcut-badge">Ctrl + K</span>
+      <header class="top-header-bar" id="overview">
+        <div class="header-greeting-area">
+          <h1 id="welcomeGreeting">Welcome back, Merchant</h1>
+          <p>Real-time order sync and daily automated shop digests.</p>
         </div>
 
-        <!-- Quick Profile & Notification Cluster -->
-        <div class="header-user-cluster">
-          <button class="neu-icon-btn" id="notifBellBtn" title="Notifications" aria-label="Notifications">
-            <svg style="width: 19px; height: 19px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-            </svg>
-            <div class="notif-badge-dot"></div>
-          </button>
+        <div class="header-right-cluster">
+          <div class="period-toggle-group">
+            <button class="period-pill active">Today</button>
+            <button class="period-pill">This Week</button>
+            <button class="period-pill">This Month</button>
+          </div>
 
-          <div class="user-quick-profile" id="userQuickProfileTrigger">
-            <div class="user-avatar-sm" id="userAvatarSmall">S</div>
-            <div class="user-quick-info">
-              <div class="user-quick-name" id="userQuickName">Seller Account</div>
-              <div class="user-quick-role" id="userEmailBadge">Pro Merchant</div>
-            </div>
+          <div class="user-profile-badge">
+            <div class="avatar-disc" id="userAvatarSmall">S</div>
+            <span class="user-label-text" id="userQuickName">Seller</span>
           </div>
         </div>
       </header>
 
-      <!-- Welcome Banner & Filter Controls -->
-      <section class="welcome-banner" id="overview">
-        <div class="welcome-text">
-          <h1 id="welcomeGreeting">Welcome back, Merchant</h1>
-          <p>Here is your daily performance digest &amp; live production orders.</p>
-        </div>
-        <div class="filter-pill-group">
-          <button class="filter-pill active" data-period="today">Today</button>
-          <button class="filter-pill" data-period="week">This Week</button>
-          <button class="filter-pill" data-period="month">This Month</button>
-        </div>
-      </section>
-
-      <!-- Top Metrics Summary (Dynamic Real Numbers) -->
-      <section class="metrics-row">
-        <!-- Metric 1: Recent Orders (Real Printify Data) -->
-        <div class="neu-card metric-card" id="orders">
-          <div class="metric-card-top">
-            <div class="metric-icon-capsule">
-              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Top Metrics Row (Responsive 4-Grid -> 2x2 on laptops) -->
+      <section class="metrics-grid">
+        <!-- Metric 1: Orders -->
+        <div class="neu-box metric-stat-card">
+          <div class="metric-top-meta">
+            <div class="metric-icon-box">
+              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
               </svg>
             </div>
-            <span class="metric-trend trend-up">
-              Live Feed
-            </span>
+            <span class="metric-pill-tag pill-green">Live Feed</span>
           </div>
           <div>
-            <div class="metric-number" id="orderCount">0</div>
-            <div class="metric-label">Printify Recent Orders</div>
+            <div class="metric-stat-value" id="orderCount">0</div>
+            <div class="metric-stat-title">Printify Recent Orders</div>
           </div>
         </div>
 
-        <!-- Metric 2: Connected Stores -->
-        <div class="neu-card metric-card">
-          <div class="metric-card-top">
-            <div class="metric-icon-capsule">
-              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Metric 2: Connected Store -->
+        <div class="neu-box metric-stat-card">
+          <div class="metric-top-meta">
+            <div class="metric-icon-box">
+              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg>
             </div>
-            <span class="metric-trend trend-neutral" id="metricStoreStatus">
-              Active
-            </span>
+            <span class="metric-pill-tag pill-neutral" id="metricStoreStatus">Ready</span>
           </div>
           <div>
-            <div class="metric-number" id="activeStoreCount">0</div>
-            <div class="metric-label">Connected Store(s)</div>
+            <div class="metric-stat-value" id="activeStoreCount">0</div>
+            <div class="metric-stat-title">Connected Store(s)</div>
           </div>
         </div>
 
-        <!-- Metric 3: Live Feed Sync Status -->
-        <div class="neu-card metric-card">
-          <div class="metric-card-top">
-            <div class="metric-icon-capsule">
-              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Metric 3: Webhook Tunnel -->
+        <div class="neu-box metric-stat-card">
+          <div class="metric-top-meta">
+            <div class="metric-icon-box">
+              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
               </svg>
             </div>
-            <span class="metric-trend trend-up" id="realtimeBadge">
-              Ready
-            </span>
+            <span class="metric-pill-tag pill-green" id="realtimeBadge">Online</span>
           </div>
           <div>
-            <div class="metric-number" id="liveOrderTotalCount" style="font-size: 20px;">Realtime</div>
-            <div class="metric-label">Order Webhook Tunnel</div>
+            <div class="metric-stat-value" style="font-size: 20px;">Realtime</div>
+            <div class="metric-stat-title">Order Webhook Tunnel</div>
           </div>
         </div>
 
         <!-- Metric 4: Daily Digest Schedule -->
-        <div class="neu-card metric-card">
-          <div class="metric-card-top">
-            <div class="metric-icon-capsule">
-              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="neu-box metric-stat-card">
+          <div class="metric-top-meta">
+            <div class="metric-icon-box">
+              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <span class="metric-trend trend-neutral">
-              08:00 UTC
-            </span>
+            <span class="metric-pill-tag pill-neutral">08:00 UTC</span>
           </div>
           <div>
-            <div class="metric-number" style="font-size: 20px;">Daily 8 AM</div>
-            <div class="metric-label">Scheduled Seller Email</div>
+            <div class="metric-stat-value" style="font-size: 20px;">Daily 8 AM</div>
+            <div class="metric-stat-title">Automated Seller Email</div>
           </div>
         </div>
       </section>
 
-      <!-- Central Analytics Chart Section -->
-      <section class="neu-card analytics-chart-card" id="analytics">
-        <div class="chart-header">
-          <div class="chart-title">
-            <h3>Recent Store Activity &amp; Orders Velocity</h3>
+      <!-- Central Analytics Section (Fluid Scaling Container) -->
+      <section class="neu-box analytics-box" id="analytics">
+        <div class="section-head-bar">
+          <div>
+            <h3>Store Activity &amp; Orders Velocity</h3>
             <p>Real-time order trajectories across your connected Printify store</p>
           </div>
-          <div class="chart-segmented-control">
-            <button class="chart-segment-btn active" id="chartTabOrders">Orders History</button>
-            <button class="chart-segment-btn" id="chartTabStatus">Fulfillment Status</button>
+          <div class="period-toggle-group">
+            <button class="period-pill active">Orders Flow</button>
+            <button class="period-pill">Fulfillment</button>
           </div>
         </div>
-        <div class="chart-visual-area">
-          <div id="chartPlaceholderContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: var(--text-secondary);">
-            <svg style="width: 36px; height: 36px; color: var(--accent-primary); margin-bottom: 8px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="analytics-canvas-frame">
+          <div class="status-placeholder-view">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
-            <strong style="font-size: 13.5px; color: var(--text-primary);" id="chartOrdersSummaryText">Awaiting store orders...</strong>
-            <p style="font-size: 12px; margin-top: 4px;" id="chartSubText">Connect your store to render live order volume charts.</p>
+            <strong style="font-size: 13.5px; color: var(--text-main);" id="chartOrdersSummaryText">Awaiting store connection...</strong>
+            <p style="font-size: 12px; margin-top: 4px;" id="chartSubText">Connect your Printify store to render live order volume charts.</p>
           </div>
         </div>
       </section>
 
-      <!-- Store & Live Orders Component -->
-      <section class="neu-card store-analytics-panel">
-        <!-- Connect View (Visible when no store is connected) -->
+      <!-- Store & Orders Management Section -->
+      <section class="neu-box orders-feed-card" id="ordersSection">
+        <!-- Connect View -->
         <div id="connectView">
-          <h2>Connect Your Store</h2>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Link your Printify account to view real-time production orders and trigger automated digests.</p>
-          <p id="status" style="font-size: 12px; margin: 12px 0; color: var(--accent-primary); font-weight: 600;">No stores connected yet.</p>
+          <h3>Connect Your Store</h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Link your Printify account to stream orders into your live feed.</p>
+          <p id="status" style="font-size: 12px; margin: 12px 0; color: var(--primary); font-weight: 600;">No stores connected yet.</p>
           <button id="connectPrintifyBtn" class="neu-btn neu-btn-primary">+ Connect Printify Store</button>
 
-          <div id="printifyForm" style="display:none; margin-top: 16px;">
-            <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Printify API Token</label>
-            <input type="text" id="printifyToken" class="neu-input" placeholder="Paste your API token here">
+          <div id="printifyForm" style="display:none; margin-top: 14px;">
+            <label class="field-label">Printify API Token</label>
+            <input type="text" id="printifyToken" class="neu-input-field" placeholder="Paste your API token here">
             <button id="savePrintifyBtn" class="neu-btn neu-btn-primary" style="margin-top: 10px;">Save Connection</button>
           </div>
         </div>
 
-        <!-- Store View (Visible when store is connected) -->
+        <!-- Store View -->
         <div id="storeView" style="display:none;">
-          <div class="store-meta-bar">
-            <div class="store-name-title">
-              <h2 id="storeName">Howzt</h2>
-              <span class="store-platform-badge" id="storePlatform">Printify</span>
+          <div class="store-live-meta">
+            <div class="store-identity-group">
+              <h2 id="storeName" style="font-size: 18px; font-weight: 800;">Store</h2>
+              <span class="store-badge" id="storePlatform">Printify</span>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 8px;">
               <button id="registerWebhooksBtn" class="neu-btn">Enable live updates</button>
               <button id="enablePushBtn" class="neu-btn neu-btn-primary">Enable alerts</button>
             </div>
           </div>
 
-          <p id="storeError" style="display:none; color: var(--accent-red); font-size: 12px; margin-bottom: 10px;"></p>
-          <p id="liveOrdersStatus" style="font-size: 12px; color: var(--text-secondary);"></p>
+          <p id="storeError" style="display:none; color: var(--accent-red); font-size: 12px; margin-bottom: 8px;"></p>
+          <p id="liveOrdersStatus" style="font-size: 12px; color: var(--text-muted);"></p>
 
-          <div id="liveOrdersList" class="orders-container">
-            <p style="font-size: 13px; color: var(--text-muted); text-align: center; padding: 18px 0;">No orders yet. New Printify orders will stream in automatically.</p>
+          <div id="liveOrdersList" class="orders-stream-box">
+            <p style="font-size: 12.5px; color: var(--text-sub); text-align: center; padding: 14px 0;">No orders yet. New Printify orders will appear here automatically.</p>
           </div>
         </div>
       </section>
 
-      <!-- Store Management Drawer / Actions -->
-      <section class="neu-card" style="margin-bottom: 28px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <h3 style="font-size: 15px; font-weight: 700;">Multi-Store Management &amp; Digest Dispatch</h3>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Dispatch instant seller digests to your registered email.</p>
-          </div>
-          <div style="display: flex; gap: 10px;">
-            <button id="sendDigestBtn" class="neu-btn neu-btn-primary">Email Me This Digest Now</button>
-            <button id="addStoreBtn" class="neu-btn">+ Add Another Store</button>
-          </div>
+      <!-- Multi-Store & Digest Dispatch Bar -->
+      <section class="neu-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h4 style="font-size: 14.5px; font-weight: 700;">Digest Dispatch &amp; Store Setup</h4>
+          <p style="font-size: 12px; color: var(--text-muted);">Send an immediate summary to your inbox or link additional stores.</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="sendDigestBtn" class="neu-btn neu-btn-primary">Email Me This Digest Now</button>
+          <button id="addStoreBtn" class="neu-btn">+ Add Another Store</button>
         </div>
 
-        <div id="addStoreForm" style="display:none; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(163, 177, 198, 0.3);">
-          <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">New Store API Key</label>
-          <input type="text" id="newStoreApiKey" class="neu-input" placeholder="Paste your Printify token here">
+        <div id="addStoreForm" style="display:none; width: 100%; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(163, 177, 198, 0.25);">
+          <label class="field-label">New Store API Key</label>
+          <input type="text" id="newStoreApiKey" class="neu-input-field" placeholder="Paste your Printify token here">
           <button id="connectNewStoreBtn" class="neu-btn neu-btn-primary" style="margin-top: 10px;">Connect New Store</button>
-          <p id="addStoreStatus" style="font-size: 12px; margin-top: 8px; color: var(--accent-primary);"></p>
+          <p id="addStoreStatus" style="font-size: 12px; margin-top: 8px; color: var(--primary);"></p>
         </div>
       </section>
 
-      <!-- Featured T-Shirt Designs Ad & Inspiration Showcase -->
-      <section class="neu-card tshirt-showcase-section" id="inspiration">
-        <div class="showcase-header">
+      <!-- POD Inspiration Section -->
+      <section class="neu-box" id="inspiration">
+        <div class="section-head-bar">
           <div>
-            <h2>🔥 Trending T-Shirt Designs &amp; POD Mockup Ideas</h2>
-            <p id="showcaseNote">High-converting aesthetic concepts, Pinterest trends, and bestseller mockups for your store.</p>
+            <h3>🔥 Trending T-Shirt Designs &amp; POD Ideas</h3>
+            <p id="showcaseNote">High-converting aesthetic concepts and bestseller mockups for your catalog.</p>
           </div>
-          <div style="display: flex; gap: 8px;">
-            <button id="tshirtScrollLeft" class="neu-icon-btn" aria-label="Scroll left">&larr;</button>
-            <button id="tshirtScrollRight" class="neu-icon-btn" aria-label="Scroll right">&rarr;</button>
+          <div style="display: flex; gap: 6px;">
+            <button id="tshirtScrollLeft" class="neu-icon-button" aria-label="Scroll left">&larr;</button>
+            <button id="tshirtScrollRight" class="neu-icon-button" aria-label="Scroll right">&rarr;</button>
           </div>
         </div>
 
-        <div class="tshirt-scroll-container" id="tshirtScrollContainer">
-          <div class="tshirt-track" id="tshirtTrack">
+        <div class="showcase-slider-wrap" id="tshirtScrollContainer">
+          <div class="showcase-track-row" id="tshirtTrack">
 
             <!-- Card 1 -->
-            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/4604789963363929728/" target="_blank" rel="noopener noreferrer">
-              <div class="tshirt-badge">📌 Pinterest Trend</div>
-              <div class="tshirt-mockup">
-                <img src="/img/pin-1.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/6a/a8/19/6aa819396a09a65ffed5b2f2505f3cc3.jpg';" alt="Blondies London: Skull Design" loading="lazy">
+            <a class="pin-item-card" href="https://www.pinterest.com/pin/4604789963363929728/" target="_blank" rel="noopener noreferrer">
+              <div class="pin-badge-float">📌 Trend</div>
+              <div class="pin-mockup-frame">
+                <img src="/img/pin-1.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/6a/a8/19/6aa819396a09a65ffed5b2f2505f3cc3.jpg';" alt="Blondies London Skull" loading="lazy">
               </div>
-              <div class="tshirt-info">
+              <div class="pin-info-details">
                 <h4>Blondies London Skull</h4>
-                <p class="tshirt-niche">Streetwear &amp; Vintage Rock</p>
-                <div class="tshirt-metrics">
-                  <span class="metric-pill pill-purple">55% Margin</span>
-                  <span class="metric-pill pill-green">High Demand</span>
+                <p class="pin-niche-text">Streetwear &amp; Vintage</p>
+                <div class="pin-pill-tags">
+                  <span class="tag-pill" style="color: #7c3aed;">55% Margin</span>
+                  <span class="tag-pill" style="color: #059669;">High Demand</span>
                 </div>
               </div>
             </a>
 
             <!-- Card 2 -->
-            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/675610381650524429/" target="_blank" rel="noopener noreferrer">
-              <div class="tshirt-badge">📌 Pinterest Trend</div>
-              <div class="tshirt-mockup">
-                <img src="/img/pin-2.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7c/fb/9f/7cfb9f0f17692cdb7e9f85d0e85f9fc1.jpg';" alt="Urban Aesthetic Illustration" loading="lazy">
+            <a class="pin-item-card" href="https://www.pinterest.com/pin/675610381650524429/" target="_blank" rel="noopener noreferrer">
+              <div class="pin-badge-float">📌 Trend</div>
+              <div class="pin-mockup-frame">
+                <img src="/img/pin-2.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7c/fb/9f/7cfb9f0f17692cdb7e9f85d0e85f9fc1.jpg';" alt="Urban Vector" loading="lazy">
               </div>
-              <div class="tshirt-info">
-                <h4>Urban Vector Illustration</h4>
-                <p class="tshirt-niche">Anime &amp; Cyber Street</p>
-                <div class="tshirt-metrics">
-                  <span class="metric-pill pill-blue">52% Margin</span>
-                  <span class="metric-pill pill-orange">Viral Hit</span>
+              <div class="pin-info-details">
+                <h4>Urban Vector Art</h4>
+                <p class="pin-niche-text">Anime &amp; Cyber Street</p>
+                <div class="pin-pill-tags">
+                  <span class="tag-pill" style="color: #0284c7;">52% Margin</span>
+                  <span class="tag-pill" style="color: #ea580c;">Viral Hit</span>
                 </div>
               </div>
             </a>
 
             <!-- Card 3 -->
-            <a class="tshirt-card pin-card" href="http://pinterest.com/pin/584271751692840579/" target="_blank" rel="noopener noreferrer">
-              <div class="tshirt-badge">📌 Pinterest Trend</div>
-              <div class="tshirt-mockup">
-                <img src="/img/pin-3.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/f8/f5/e2/f8f5e22089a0e26200941ca258436b9c.jpg';" alt="Graphic Artwork Tee" loading="lazy">
+            <a class="pin-item-card" href="http://pinterest.com/pin/584271751692840579/" target="_blank" rel="noopener noreferrer">
+              <div class="pin-badge-float">📌 Trend</div>
+              <div class="pin-mockup-frame">
+                <img src="/img/pin-3.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/f8/f5/e2/f8f5e22089a0e26200941ca258436b9c.jpg';" alt="Dark Vintage Tee" loading="lazy">
               </div>
-              <div class="tshirt-info">
+              <div class="pin-info-details">
                 <h4>Dark Vintage Graphic</h4>
-                <p class="tshirt-niche">Y2K &amp; Grunge Graphic</p>
-                <div class="tshirt-metrics">
-                  <span class="metric-pill pill-purple">50% Margin</span>
-                  <span class="metric-pill pill-green">Bestseller</span>
+                <p class="pin-niche-text">Y2K &amp; Grunge Graphic</p>
+                <div class="pin-pill-tags">
+                  <span class="tag-pill" style="color: #7c3aed;">50% Margin</span>
+                  <span class="tag-pill" style="color: #059669;">Bestseller</span>
                 </div>
               </div>
             </a>
 
             <!-- Card 4 -->
-            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/503558802107444760/" target="_blank" rel="noopener noreferrer">
-              <div class="tshirt-badge">📌 Pinterest Trend</div>
-              <div class="tshirt-mockup">
-                <img src="/img/pin-4.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/1c/61/10/1c611087706f0f0c562e89bd64d59ec2.jpg';" alt="Glowing Filter Ghosts" loading="lazy">
+            <a class="pin-item-card" href="https://www.pinterest.com/pin/503558802107444760/" target="_blank" rel="noopener noreferrer">
+              <div class="pin-badge-float">📌 Trend</div>
+              <div class="pin-mockup-frame">
+                <img src="/img/pin-4.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/1c/61/10/1c611087706f0f0c562e89bd64d59ec2.jpg';" alt="Glowing Ghosts" loading="lazy">
               </div>
-              <div class="tshirt-info">
+              <div class="pin-info-details">
                 <h4>Spooky Glowing Ghosts</h4>
-                <p class="tshirt-niche">Halloween &amp; Cute Horror</p>
-                <div class="tshirt-metrics">
-                  <span class="metric-pill pill-orange">58% Margin</span>
-                  <span class="metric-pill pill-blue">Seasonal Peak</span>
+                <p class="pin-niche-text">Halloween &amp; Cute Horror</p>
+                <div class="pin-pill-tags">
+                  <span class="tag-pill" style="color: #ea580c;">58% Margin</span>
+                  <span class="tag-pill" style="color: #0284c7;">Seasonal</span>
                 </div>
               </div>
             </a>
 
             <!-- Card 5 -->
-            <a class="tshirt-card pin-card" href="https://www.pinterest.com/pin/153333562309965707/" target="_blank" rel="noopener noreferrer">
-              <div class="tshirt-badge">📌 Pinterest Trend</div>
-              <div class="tshirt-mockup">
-                <img src="/img/pin-5.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/bb/9f/46/bb9f46778eb5dd32ac3d8bd2f6319bdc.jpg';" alt="Halloween Spooky Backgrounds" loading="lazy">
+            <a class="pin-item-card" href="https://www.pinterest.com/pin/153333562309965707/" target="_blank" rel="noopener noreferrer">
+              <div class="pin-badge-float">📌 Trend</div>
+              <div class="pin-mockup-frame">
+                <img src="/img/pin-5.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/bb/9f/46/bb9f46778eb5dd32ac3d8bd2f6319bdc.jpg';" alt="Pastel Collage" loading="lazy">
               </div>
-              <div class="tshirt-info">
+              <div class="pin-info-details">
                 <h4>Spooky Pastel Collage</h4>
-                <p class="tshirt-niche">Autumn Aesthetic &amp; POD</p>
-                <div class="tshirt-metrics">
-                  <span class="metric-pill pill-green">54% Margin</span>
-                  <span class="metric-pill pill-purple">High Repeat</span>
+                <p class="pin-niche-text">Autumn Aesthetic</p>
+                <div class="pin-pill-tags">
+                  <span class="tag-pill" style="color: #059669;">54% Margin</span>
+                  <span class="tag-pill" style="color: #7c3aed;">High Repeat</span>
                 </div>
               </div>
             </a>
@@ -416,14 +390,18 @@
         </div>
       </section>
 
-      <!-- Seller Playbook & Growth Strategies -->
-      <section class="neu-card" id="tips" style="margin-top: 28px;">
-        <h2 style="font-size: 17px; font-weight: 800;">📖 Seller Playbook &amp; Store Growth Tactics</h2>
-        <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 2px;" id="insightsNote">Battle-tested strategies for Print-on-Demand scaling.</p>
+      <!-- Seller Playbook Section -->
+      <section class="neu-box" id="playbook">
+        <div class="section-head-bar">
+          <div>
+            <h3>📖 Seller Playbook &amp; Store Growth Tactics</h3>
+            <p id="insightsNote">Battle-tested strategies for Print-on-Demand scaling.</p>
+          </div>
+        </div>
 
-        <div class="tips-grid">
-          <div class="tips-col">
-            <h3>Product &amp; Pricing</h3>
+        <div class="playbook-grid-row">
+          <div class="playbook-panel">
+            <h4>Product &amp; Pricing</h4>
             <ul id="insightGrid">
               <li>Bundle matching items to push average order value above $35.</li>
               <li>Heavyweight oversized tees convert best on Etsy &amp; TikTok Shop right now.</li>
@@ -431,8 +409,8 @@
               <li>Price with room for seasonal 20% sales while keeping 40%+ margin.</li>
             </ul>
           </div>
-          <div class="tips-col">
-            <h3>Short-Form Video</h3>
+          <div class="playbook-panel">
+            <h4>Short-Form Video</h4>
             <ul id="youtubeTips">
               <li>Film 15-second fabric feel and print quality closeups.</li>
               <li>Keep title under 50 characters with the exact product niche keyword.</li>
@@ -440,8 +418,8 @@
               <li>Pin your shop link as the top comment on every upload.</li>
             </ul>
           </div>
-          <div class="tips-col">
-            <h3>Social &amp; Community</h3>
+          <div class="playbook-panel">
+            <h4>Social &amp; Community</h4>
             <ul id="instagramTips">
               <li>Show order packing and behind-the-scenes store operations.</li>
               <li>Use 5-7 targeted niche hashtags instead of generic ones.</li>
@@ -452,100 +430,78 @@
         </div>
       </section>
 
-      <!-- Dashboard Footer -->
-      <footer class="dashboard-footer">
+      <!-- 2-Column Support & Account Management Section -->
+      <div class="support-account-grid" id="supportSection">
+        <!-- Clean Support Contact Form (Structured Grid) -->
+        <div class="neu-box contact-card-box">
+          <h3 style="font-size: 15px; font-weight: 700;">Contact Support</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+            Official direct email: <strong style="color: var(--primary);">support.sellytics@gmail.com</strong>
+          </p>
+
+          <form id="inlineSupportForm">
+            <div>
+              <label class="field-label" for="supportName">Your Name</label>
+              <input type="text" id="supportName" class="neu-input-field" placeholder="Alex Seller" required>
+            </div>
+            <div>
+              <label class="field-label" for="supportEmail">Your Email</label>
+              <input type="email" id="supportEmail" class="neu-input-field" placeholder="you@example.com" required>
+            </div>
+            <div class="form-full-col">
+              <label class="field-label" for="supportSubject">Subject</label>
+              <input type="text" id="supportSubject" class="neu-input-field" placeholder="Question regarding my store digest" required>
+            </div>
+            <div class="form-full-col">
+              <label class="field-label" for="supportMessage">Message</label>
+              <textarea id="supportMessage" class="neu-input-field" placeholder="How can our support team help you today?" required></textarea>
+            </div>
+            <div class="form-full-col">
+              <button type="submit" id="supportSubmitBtn" class="neu-btn neu-btn-primary" style="width: 100%; justify-content: center;">Send Support Message</button>
+              <p id="supportModalStatus" style="font-size: 12px; text-align: center; margin-top: 8px; font-weight: 600;"></p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Account Controls & Session Card -->
+        <div class="neu-box" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 15px; font-weight: 700;">Merchant Account</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;" id="panelUserEmail">Loading session...</p>
+            <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+              <p>Active Seller Plan: <strong style="color: var(--primary);" id="panelUserName">Seller Pro</strong></p>
+              <p>Account ID: <span id="userEmailBadge" style="font-family: monospace; font-size: 11px;">seller</span></p>
+              <div style="display:none;" id="userAvatarBig"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 20px;">
+            <button id="accountLogoutBtn" class="neu-btn" style="width: 100%; justify-content: center;">Log Out</button>
+            <button id="deleteAccountBtn" class="neu-btn neu-btn-danger" style="width: 100%; justify-content: center;">Delete Account &amp; Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clean Dashboard Footer -->
+      <footer class="clean-footer">
         <nav>
           <a href="/privacy.html">Privacy Policy</a>
           <a href="/terms.html">Terms of Service</a>
           <a href="/impressum.html">Impressum</a>
-          <a href="mailto:support.sellytics@gmail.com" data-support-trigger="true">Contact Support</a>
+          <a href="mailto:support.sellytics@gmail.com">support.sellytics@gmail.com</a>
         </nav>
-        <p>Support: <a href="mailto:support.sellytics@gmail.com" data-support-trigger="true" style="color: inherit; text-decoration: underline;">support.sellytics@gmail.com</a></p>
-        <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
+        <p>The term 'Etsy' is a trademark of Etsy, Inc. This application is not endorsed or certified by Etsy.</p>
       </footer>
 
     </main>
 
-    <!-- ====================================================================
-         3. RIGHT UTILITY PANEL (~320px)
-         ==================================================================== -->
-    <aside class="utility-panel">
-
-      <!-- Profile Overview Card -->
-      <div class="neu-card profile-card">
-        <div class="profile-avatar-frame">
-          <div class="profile-avatar-inner" id="userAvatarBig">S</div>
-        </div>
-        <h3 id="panelUserName">Store Merchant</h3>
-        <div class="profile-role-tag">E-Commerce Merchant</div>
-        <div class="profile-email-label" id="panelUserEmail">Loading session...</div>
-
-        <div class="profile-actions-row">
-          <button id="accountLogoutBtn" class="neu-btn" style="width: 100%; justify-content: center;">
-            <svg style="width: 15px; height: 15px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-            </svg>
-            <span>Log Out</span>
-          </button>
-          <button id="deleteAccountBtn" class="neu-btn neu-btn-danger" style="width: 100%; justify-content: center;">
-            <svg style="width: 15px; height: 15px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-            <span>Delete Account</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Activity Timeline -->
-      <div class="neu-card timeline-card">
-        <h4>Recent Activity</h4>
-        <div class="timeline-list">
-          <div class="timeline-item">
-            <div class="timeline-node"><div class="timeline-node-inner"></div></div>
-            <div class="timeline-content">
-              <p>Printify Sync Active</p>
-              <span>Webhook tunnel live</span>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-node"><div class="timeline-node-inner"></div></div>
-            <div class="timeline-content">
-              <p>Daily Digest Scheduled</p>
-              <span>Every morning at 08:00</span>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-node"><div class="timeline-node-inner"></div></div>
-            <div class="timeline-content">
-              <p>Seller Tips Updated</p>
-              <span>Playbook strategies active</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- System Status / Storage Card -->
-      <div class="neu-card system-card">
-        <h4>System &amp; Sync Load</h4>
-        <p style="font-size: 11.5px; color: var(--text-secondary);">Realtime Webhook Tunnel Health</p>
-        <div class="storage-bar-track">
-          <div class="storage-bar-fill" style="width: 100%; background: var(--accent-green);"></div>
-        </div>
-        <div class="storage-meta">
-          <span>Tunnel: Connected</span>
-          <span id="systemSyncLatency">Operational</span>
-        </div>
-      </div>
-
-    </aside>
-
   </div>
 
-  <!-- iOS "Add to Home Screen" Hint -->
-  <div id="iosInstallHint" class="neu-card" style="display:none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 1000; align-items: center; justify-content: space-between;" role="note">
+  <!-- iOS Install Hint -->
+  <div id="iosInstallHint" class="neu-box" style="display:none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 1000; align-items: center; justify-content: space-between;" role="note">
     <div>
       <strong style="font-size: 13px;">Add Sellytics to your Home Screen</strong>
-      <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Tap Share &rarr; Choose “Add to Home Screen” for native push alerts.</p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Tap Share &rarr; Choose “Add to Home Screen” for native push alerts.</p>
     </div>
     <button type="button" id="iosInstallDismiss" class="neu-btn">Got it</button>
   </div>

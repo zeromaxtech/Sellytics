@@ -1,7 +1,52 @@
-// Support modal helper injected across site pages
+// Support modal & inline form helper injected across site pages
 (function() {
   function initSupportModal() {
-    // Only inject once
+    // If inline form is present on the page (like dashboard), hook it directly
+    const inlineForm = document.getElementById('inlineSupportForm');
+    if (inlineForm) {
+      inlineForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('supportSubmitBtn');
+        const statusEl = document.getElementById('supportModalStatus');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        statusEl.textContent = 'Delivering your message...';
+        statusEl.style.color = 'var(--primary)';
+
+        const payload = {
+          name: document.getElementById('supportName').value.trim(),
+          email: document.getElementById('supportEmail').value.trim(),
+          subject: document.getElementById('supportSubject').value.trim(),
+          message: document.getElementById('supportMessage').value.trim(),
+        };
+
+        try {
+          const res = await fetch('/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (res.ok) {
+            statusEl.textContent = data.message || 'Message sent successfully!';
+            statusEl.style.color = 'var(--accent-green)';
+            inlineForm.reset();
+          } else {
+            statusEl.textContent = data.message || 'Failed to send message.';
+            statusEl.style.color = 'var(--accent-red)';
+          }
+        } catch (err) {
+          statusEl.textContent = 'Network error. Please try again.';
+          statusEl.style.color = 'var(--accent-red)';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Support Message';
+        }
+      });
+      return; // Do not inject modal if inline form is used
+    }
+
+    // Only inject once for standalone pages
     if (document.getElementById('supportModalBackdrop')) return;
 
     const modalHtml = `
