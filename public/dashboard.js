@@ -90,7 +90,22 @@ function renderStore(data) {
   connectView.style.display = 'none';
   storeView.style.display = 'block';
   document.getElementById('storeName').textContent = data.shopTitle;
-  document.getElementById('orderCount').textContent = data.recentOrderCount;
+  document.getElementById('orderCount').textContent = data.recentOrderCount ?? 0;
+
+  const activeStoreCount = document.getElementById('activeStoreCount');
+  if (activeStoreCount) activeStoreCount.textContent = '1';
+
+  const metricStoreStatus = document.getElementById('metricStoreStatus');
+  if (metricStoreStatus) metricStoreStatus.textContent = 'Connected';
+
+  const chartSummary = document.getElementById('chartOrdersSummaryText');
+  if (chartSummary) {
+    chartSummary.textContent = `${data.recentOrderCount || 0} Recent Orders from "${data.shopTitle}"`;
+  }
+  const chartSub = document.getElementById('chartSubText');
+  if (chartSub) {
+    chartSub.textContent = 'Store is connected and synced with Printify API.';
+  }
 
   const errorEl = document.getElementById('storeError');
   if (data.error) {

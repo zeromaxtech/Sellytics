@@ -1019,9 +1019,196 @@ body {
   margin-top: 8px;
 }
 
-/* ==========================================================================
-   RESPONSIVE MEDIA QUERIES
-   ========================================================================== */
+/* ---------- Contact Support Modal (Neumorphic) ---------- */
+
+.support-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.support-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.support-modal {
+  background: var(--neu-base);
+  border-radius: var(--radius-xl);
+  box-shadow: -10px -10px 24px var(--neu-light-shadow), 10px 10px 24px var(--neu-dark-shadow);
+  width: 90%;
+  max-width: 460px;
+  padding: 32px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.support-modal-backdrop.active .support-modal {
+  transform: translateY(0);
+}
+
+.support-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: var(--neu-base);
+  border: none;
+  box-shadow: var(--shadow-extruded-sm);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.support-modal-close:hover {
+  color: var(--accent-red);
+}
+
+.support-modal-close:active {
+  box-shadow: var(--shadow-inset-sm);
+}
+
+.support-modal h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.support-modal-info {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.support-modal-info strong {
+  color: var(--accent-primary);
+}
+
+.support-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.support-modal form label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.support-modal form input,
+.support-modal form textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--neu-base);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-inset);
+  border: none;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.support-modal form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.support-modal form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.6), 4px 4px 10px rgba(108, 92, 231, 0.4);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.support-modal form button[type="submit"]:hover {
+  background: var(--accent-primary-hover);
+}
+
+.support-modal form button[type="submit"]:active {
+  box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.support-modal-status {
+  font-size: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.support-modal-status.success { color: var(--accent-green); }
+.support-modal-status.error { color: var(--accent-red); }
+
+/* Clean Dashboard Footer */
+.dashboard-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(163, 177, 198, 0.3);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.dashboard-footer nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.dashboard-footer nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.dashboard-footer nav a:hover {
+  color: var(--accent-primary);
+}
+
+.dashboard-footer p {
+  font-size: 11.5px;
+  margin-top: 4px;
+}
+
+.dashboard-footer .trademark {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
 
 @media (max-width: 1279px) {
   .app-layout {

@@ -159,27 +159,9 @@
         </div>
       </section>
 
-      <!-- Top Metrics Summary (4-Column Row) -->
+      <!-- Top Metrics Summary (Dynamic Real Numbers) -->
       <section class="metrics-row">
-        <!-- Metric 1: Total Revenue -->
-        <div class="neu-card metric-card">
-          <div class="metric-card-top">
-            <div class="metric-icon-capsule">
-              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <span class="metric-trend trend-up">
-              &uarr; 18.4%
-            </span>
-          </div>
-          <div>
-            <div class="metric-number" id="metricRevenue">$1,420.00</div>
-            <div class="metric-label">Estimated Gross Revenue</div>
-          </div>
-        </div>
-
-        <!-- Metric 2: Recent Orders (Tied to Live Printify API) -->
+        <!-- Metric 1: Recent Orders (Real Printify Data) -->
         <div class="neu-card metric-card" id="orders">
           <div class="metric-card-top">
             <div class="metric-icon-capsule">
@@ -197,25 +179,43 @@
           </div>
         </div>
 
-        <!-- Metric 3: Profit Margin -->
+        <!-- Metric 2: Connected Stores -->
         <div class="neu-card metric-card">
           <div class="metric-card-top">
             <div class="metric-icon-capsule">
               <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg>
             </div>
-            <span class="metric-trend trend-up">
-              54.2%
+            <span class="metric-trend trend-neutral" id="metricStoreStatus">
+              Active
             </span>
           </div>
           <div>
-            <div class="metric-number">52.8%</div>
-            <div class="metric-label">Avg. Catalog Margin</div>
+            <div class="metric-number" id="activeStoreCount">0</div>
+            <div class="metric-label">Connected Store(s)</div>
           </div>
         </div>
 
-        <!-- Metric 4: Production Queue -->
+        <!-- Metric 3: Live Feed Sync Status -->
+        <div class="neu-card metric-card">
+          <div class="metric-card-top">
+            <div class="metric-icon-capsule">
+              <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <span class="metric-trend trend-up" id="realtimeBadge">
+              Ready
+            </span>
+          </div>
+          <div>
+            <div class="metric-number" id="liveOrderTotalCount" style="font-size: 20px;">Realtime</div>
+            <div class="metric-label">Order Webhook Tunnel</div>
+          </div>
+        </div>
+
+        <!-- Metric 4: Daily Digest Schedule -->
         <div class="neu-card metric-card">
           <div class="metric-card-top">
             <div class="metric-icon-capsule">
@@ -224,12 +224,12 @@
               </svg>
             </div>
             <span class="metric-trend trend-neutral">
-              In Sync
+              08:00 UTC
             </span>
           </div>
           <div>
-            <div class="metric-number" id="activeStoreCount">1</div>
-            <div class="metric-label">Connected Store(s)</div>
+            <div class="metric-number" style="font-size: 20px;">Daily 8 AM</div>
+            <div class="metric-label">Scheduled Seller Email</div>
           </div>
         </div>
       </section>
@@ -238,37 +238,22 @@
       <section class="neu-card analytics-chart-card" id="analytics">
         <div class="chart-header">
           <div class="chart-title">
-            <h3>Sales Velocity &amp; Store Orders Flow</h3>
-            <p>Real-time order trajectories across your connected POD stores</p>
+            <h3>Recent Store Activity &amp; Orders Velocity</h3>
+            <p>Real-time order trajectories across your connected Printify store</p>
           </div>
           <div class="chart-segmented-control">
-            <button class="chart-segment-btn active">Revenue Flow</button>
-            <button class="chart-segment-btn">Order Volume</button>
-            <button class="chart-segment-btn">Production Time</button>
+            <button class="chart-segment-btn active" id="chartTabOrders">Orders History</button>
+            <button class="chart-segment-btn" id="chartTabStatus">Fulfillment Status</button>
           </div>
         </div>
         <div class="chart-visual-area">
-          <!-- Neumorphic SVG smooth curve graph -->
-          <svg class="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#6C5CE7" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="#E0E5EC" stop-opacity="0.0"/>
-              </linearGradient>
-            </defs>
-            <!-- Gridlines -->
-            <line x1="0" y1="50" x2="800" y2="50" stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1"/>
-            <line x1="0" y1="100" x2="800" y2="100" stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1"/>
-            <line x1="0" y1="150" x2="800" y2="150" stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1"/>
-            <!-- Fill area -->
-            <path d="M 0,160 Q 150,90 280,120 T 520,60 T 800,40 L 800,200 L 0,200 Z" fill="url(#chartGradient)"/>
-            <!-- Line stroke -->
-            <path d="M 0,160 Q 150,90 280,120 T 520,60 T 800,40" fill="none" stroke="#6C5CE7" stroke-width="3.5" stroke-linecap="round"/>
-            <!-- Active Data Node circles -->
-            <circle cx="280" cy="120" r="5" fill="#6C5CE7" stroke="#E0E5EC" stroke-width="2"/>
-            <circle cx="520" cy="60" r="5" fill="#6C5CE7" stroke="#E0E5EC" stroke-width="2"/>
-            <circle cx="800" cy="40" r="6" fill="#00CEC9" stroke="#E0E5EC" stroke-width="2"/>
-          </svg>
+          <div id="chartPlaceholderContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: var(--text-secondary);">
+            <svg style="width: 36px; height: 36px; color: var(--accent-primary); margin-bottom: 8px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            <strong style="font-size: 13.5px; color: var(--text-primary);" id="chartOrdersSummaryText">Awaiting store orders...</strong>
+            <p style="font-size: 12px; margin-top: 4px;" id="chartSubText">Connect your store to render live order volume charts.</p>
+          </div>
         </div>
       </section>
 
@@ -467,6 +452,18 @@
         </div>
       </section>
 
+      <!-- Dashboard Footer -->
+      <footer class="dashboard-footer">
+        <nav>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/impressum.html">Impressum</a>
+          <a href="mailto:support.sellytics@gmail.com" data-support-trigger="true">Contact Support</a>
+        </nav>
+        <p>Support: <a href="mailto:support.sellytics@gmail.com" data-support-trigger="true" style="color: inherit; text-decoration: underline;">support.sellytics@gmail.com</a></p>
+        <p class="trademark">The term 'Etsy' is a trademark of Etsy, Inc. This Application uses Etsy's API, but is not endorsed or certified by Etsy.</p>
+      </footer>
+
     </main>
 
     <!-- ====================================================================
@@ -530,13 +527,13 @@
       <!-- System Status / Storage Card -->
       <div class="neu-card system-card">
         <h4>System &amp; Sync Load</h4>
-        <p style="font-size: 11.5px; color: var(--text-secondary);">Supabase Realtime &amp; Serverless function health</p>
+        <p style="font-size: 11.5px; color: var(--text-secondary);">Realtime Webhook Tunnel Health</p>
         <div class="storage-bar-track">
-          <div class="storage-bar-fill"></div>
+          <div class="storage-bar-fill" style="width: 100%; background: var(--accent-green);"></div>
         </div>
         <div class="storage-meta">
-          <span>Capacity: Healthy</span>
-          <span>Latency: 28ms</span>
+          <span>Tunnel: Connected</span>
+          <span id="systemSyncLatency">Operational</span>
         </div>
       </div>
 
