@@ -213,3 +213,5 @@ Deploy steps:
    **Run now** in the Functions UI to test `daily-digest` without
    waiting for the schedule. Note the 30-second execution limit: with
    many connected users, move the digest loop to a background function.
+#   P y t h o n - A s s e s s m e n t -  
+ 
