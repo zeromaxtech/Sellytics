@@ -5,7 +5,7 @@
  * headers and cross-origin requests are always network-only, so a stale
  * cache can never show another user's data.
  */
-const CACHE_NAME = 'sellytics-shell-v3';
+const CACHE_NAME = 'sellytics-shell-v5';
 
 const APP_SHELL = [
   '/',
@@ -119,20 +119,19 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static app-shell assets only: cache-first.
+  // Static app-shell assets: network-first, fall back to cache.
   if (!APP_SHELL_PATHS.has(url.pathname)) return;
 
   event.respondWith(
-    caches.match(url.pathname).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
+    fetch(request)
+      .then((response) => {
         if (response.ok) {
           const copy = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(url.pathname, copy));
         }
         return response;
-      });
-    }),
+      })
+      .catch(() => caches.match(url.pathname)),
   );
 });
 
