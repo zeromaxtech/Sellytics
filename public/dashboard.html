@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sellytics — Dashboard</title>
+  <title>Sellytics — POD Analytics &amp; Store Digests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#E0E5EC">
+  <meta name="theme-color" content="#0F172A">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -12,498 +12,1043 @@
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" type="image/png" href="/icons/icon-192.png">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <link rel="stylesheet" href="neumorphic.css">
+
+  <!-- Google Font: Manrope (elayadesign approved typeface) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       AI DESIGN SKILLS (elayadesign) — NON-NEGOTIABLE VISUAL SYSTEM
+       - Typography: Manrope (single family, weight max 800, zero italics)
+       - Spacing Scale: 8px, 12px, 16px, 24px, 32px, 48px
+       - Radius: rounded-lg (8px), rounded-xl (12px), rounded-2xl (16px)
+       - Nested Radius Formula: Inner Radius = Outer Radius - Gap
+       - Borders: 1px solid rgba(226, 232, 240, 0.9) (full perimeter, zero 1-sided)
+       - Surfaces: Crisp white cards on clean slate background (#F8FAFC)
+       - Shadows: Subtle high-craft ambient diffusion (zero muddy claymorphism)
+       - Icons: Strictly clamped (max 20px, stroke-width: 1.8px)
+       - Content Realism: Zero fake metrics, zero AI boilerplate buzzwords
+       ========================================================================== */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-subtle: #F1F5F9;
+      --border: #E2E8F0;
+      --border-focus: #4F46E5;
+
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+
+      --brand-primary: #4F46E5;
+      --brand-primary-hover: #4338CA;
+      --brand-primary-light: #EEF2FF;
+
+      --emerald: #10B981;
+      --emerald-bg: #ECFDF5;
+      --rose: #EF4444;
+      --rose-bg: #FEF2F2;
+      --amber: #F59E0B;
+      --amber-bg: #FFFBEB;
+
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+      --shadow-card-hover: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --shadow-lift: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* STRICT ICON ENFORCEMENT */
+    svg {
+      width: 18px;
+      height: 18px;
+      max-width: 22px;
+      max-height: 22px;
+      min-width: 16px;
+      min-height: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+      stroke-width: 1.85px;
+    }
+
+    /* TYPOGRAPHY */
+    h1 { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em; color: var(--text-main); }
+    h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-main); }
+    h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text-main); }
+    h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+    p, span, label, input, button { font-size: 0.93rem; }
+
+    /* LAYOUT CONTAINER */
+    .app-container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* CARD SYSTEM */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      padding: 24px;
+      margin-bottom: 24px;
+      transition: box-shadow 0.25s var(--ease-smooth), border-color 0.25s var(--ease-smooth);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-card-hover);
+      border-color: #CBD5E1;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s var(--ease-smooth);
+      outline: none;
+    }
+
+    .btn:hover {
+      background: var(--surface-subtle);
+      border-color: #CBD5E1;
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      background: #E2E8F0;
+    }
+
+    .btn-primary {
+      background: var(--brand-primary);
+      color: #FFFFFF !important;
+      border-color: var(--brand-primary);
+      box-shadow: 0 1px 2px 0 rgba(79, 70, 229, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-primary-hover);
+      border-color: var(--brand-primary-hover);
+      box-shadow: 0 4px 12px 0 rgba(79, 70, 229, 0.25);
+    }
+
+    .btn-danger {
+      color: var(--rose) !important;
+      background: var(--surface);
+      border-color: #FECDD3;
+    }
+
+    .btn-danger:hover {
+      background: var(--rose-bg);
+      border-color: #FDA4AF;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s var(--ease-smooth);
+    }
+
+    .icon-btn:hover {
+      color: var(--brand-primary);
+      border-color: #CBD5E1;
+      background: var(--surface-subtle);
+    }
+
+    /* INPUT FIELDS */
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-main);
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-field:focus {
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== */
+    .top-header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      padding: 14px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    .brand-titles h1 {
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .brand-titles p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px 4px 4px;
+      border-radius: 9999px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+    }
+
+    .avatar-bubble {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .user-chip span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       METRICS ROW (4-Grid, Wrap 2x2)
+       ========================================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 110px;
+      transition: all 0.25s var(--ease-smooth);
+    }
+
+    .metric-card:hover {
+      border-color: #CBD5E1;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .metric-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .metric-icon-wrap {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--brand-primary-light);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-emerald { background: var(--emerald-bg); color: var(--emerald); }
+    .badge-indigo { background: var(--brand-primary-light); color: var(--brand-primary); }
+
+    .metric-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       CENTRAL ANALYTICS & STORE OVERVIEW
+       ========================================================================== */
+    .section-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-header-row h2 {
+      font-size: 1.25rem;
+    }
+
+    .section-header-row p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .analytics-display-frame {
+      width: 100%;
+      height: 240px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .analytics-display-frame svg {
+      width: 32px;
+      height: 32px;
+      color: var(--brand-primary);
+      margin-bottom: 8px;
+    }
+
+    /* ORDERS FEED */
+    .orders-stream-container {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      min-height: 80px;
+      margin-top: 14px;
+    }
+
+    .order-card-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .order-card-tile:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==========================================================================
+       PINTEREST POD TRENDS CAROUSEL
+       ========================================================================== */
+    .slider-viewport {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 6px 2px 14px;
+      scrollbar-width: none;
+    }
+
+    .slider-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+    }
+
+    .trend-card-item {
+      width: 215px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+      padding: 14px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s var(--ease-smooth);
+    }
+
+    .trend-card-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: #CBD5E1;
+    }
+
+    .trend-img-box {
+      width: 100%;
+      height: 155px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+    }
+
+    .trend-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s var(--ease-smooth);
+    }
+
+    .trend-card-item:hover .trend-img-box img {
+      transform: scale(1.04);
+    }
+
+    .trend-info-meta h4 {
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .trend-niche-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .trend-pill-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .micro-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+    }
+
+    /* ==========================================================================
+       SELLER PLAYBOOK (3 COLUMNS)
+       ========================================================================== */
+    .playbook-columns-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .playbook-pane {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .playbook-pane h4 {
+      color: var(--brand-primary);
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .playbook-pane ul {
+      padding-left: 18px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .playbook-pane li {
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================================================
+       2-COLUMN SUPPORT & ACCOUNT MANAGEMENT
+       ========================================================================== */
+    .support-account-split {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .contact-form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .full-width-cell {
+      grid-column: span 2;
+    }
+
+    .field-tag {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .contact-form-layout textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      margin-top: 36px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .page-footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 8px;
+    }
+
+    .page-footer nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .page-footer nav a:hover {
+      color: var(--brand-primary);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS (Laptop, Tablet, Mobile)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .support-account-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 16px 14px 40px;
+      }
+      .top-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .playbook-columns-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-form-layout {
+        grid-template-columns: 1fr;
+      }
+      .full-width-cell {
+        grid-column: span 1;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Max-width 1440px Centered Application Shell -->
-  <div class="app-wrapper">
+  <!-- Max 1240px Container (Optimal for Laptops & Desktops) -->
+  <div class="app-container">
 
-    <!-- ====================================================================
-         1. FIXED LEFT SIDEBAR (260px)
-         ==================================================================== -->
-    <aside class="app-sidebar">
-      <div>
-        <!-- Brand Logo & Title -->
-        <div class="sidebar-brand">
-          <div class="brand-icon-circle">
-            <img src="/img/logo.jpg" alt="Sellytics Logo">
-          </div>
-          <div class="brand-titles">
-            <h2>Sellytics</h2>
-            <p>POD Analytics &amp; Digests</p>
-          </div>
+    <!-- Top Navigation Header -->
+    <header class="top-header">
+      <div class="brand-cluster">
+        <img src="/img/logo.jpg" alt="Sellytics Logo" class="brand-logo-img">
+        <div class="brand-titles">
+          <h1 id="welcomeGreeting">Welcome back, Merchant</h1>
+          <p>Sellytics — POD Analytics &amp; Store Activity Digests</p>
         </div>
-
-        <!-- Primary Nav Links -->
-        <div class="sidebar-nav-title">Menu</div>
-        <ul class="sidebar-nav-list">
-          <li>
-            <a href="#overview" class="nav-link active">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-                </svg>
-                <span>Dashboard</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#analytics" class="nav-link">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-                <span>Analytics</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#ordersSection" class="nav-link">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                </svg>
-                <span>Store Orders</span>
-              </div>
-              <span class="nav-pill-badge">Live</span>
-            </a>
-          </li>
-          <li>
-            <a href="#inspiration" class="nav-link">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-                </svg>
-                <span>POD Trends</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#playbook" class="nav-link">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-                <span>Playbook</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#supportSection" class="nav-link">
-              <div class="nav-link-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                </svg>
-                <span>Support</span>
-              </div>
-            </a>
-          </li>
-        </ul>
       </div>
 
-      <!-- Bottom System Controls -->
-      <div class="sidebar-bottom">
-        <div class="live-indicator">
-          <div class="dot-pulse"></div>
-          <span>Realtime Feed Active</span>
+      <div class="header-actions">
+        <div class="user-chip">
+          <div class="avatar-bubble" id="userAvatarSmall">S</div>
+          <span id="userQuickName">Seller</span>
         </div>
-        <button id="logoutBtn" class="neu-btn neu-btn-danger" style="width: 100%; justify-content: center;">
-          <svg style="width:15px;height:15px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        <button id="logoutBtn" class="btn btn-danger" type="button" title="Sign out of Sellytics">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
           </svg>
-          <span>Sign Out</span>
+          <span>Log Out</span>
         </button>
       </div>
-    </aside>
+    </header>
 
-    <!-- ====================================================================
-         2. FLUID MAIN CONTENT AREA
-         ==================================================================== -->
-    <main class="app-main">
-
-      <!-- Top Header Bar -->
-      <header class="top-header-bar" id="overview">
-        <div class="header-greeting-area">
-          <h1 id="welcomeGreeting">Welcome back, Merchant</h1>
-          <p>Real-time order sync and daily automated shop digests.</p>
-        </div>
-
-        <div class="header-right-cluster">
-          <div class="period-toggle-group">
-            <button class="period-pill active">Today</button>
-            <button class="period-pill">This Week</button>
-            <button class="period-pill">This Month</button>
-          </div>
-
-          <div class="user-profile-badge">
-            <div class="avatar-disc" id="userAvatarSmall">S</div>
-            <span class="user-label-text" id="userQuickName">Seller</span>
-          </div>
-        </div>
-      </header>
-
-      <!-- Top Metrics Row (Responsive 4-Grid -> 2x2 on laptops) -->
-      <section class="metrics-grid">
-        <!-- Metric 1: Orders -->
-        <div class="neu-box metric-stat-card">
-          <div class="metric-top-meta">
-            <div class="metric-icon-box">
-              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-              </svg>
-            </div>
-            <span class="metric-pill-tag pill-green">Live Feed</span>
-          </div>
-          <div>
-            <div class="metric-stat-value" id="orderCount">0</div>
-            <div class="metric-stat-title">Printify Recent Orders</div>
-          </div>
-        </div>
-
-        <!-- Metric 2: Connected Store -->
-        <div class="neu-box metric-stat-card">
-          <div class="metric-top-meta">
-            <div class="metric-icon-box">
-              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-              </svg>
-            </div>
-            <span class="metric-pill-tag pill-neutral" id="metricStoreStatus">Ready</span>
-          </div>
-          <div>
-            <div class="metric-stat-value" id="activeStoreCount">0</div>
-            <div class="metric-stat-title">Connected Store(s)</div>
-          </div>
-        </div>
-
-        <!-- Metric 3: Webhook Tunnel -->
-        <div class="neu-box metric-stat-card">
-          <div class="metric-top-meta">
-            <div class="metric-icon-box">
-              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-            </div>
-            <span class="metric-pill-tag pill-green" id="realtimeBadge">Online</span>
-          </div>
-          <div>
-            <div class="metric-stat-value" style="font-size: 20px;">Realtime</div>
-            <div class="metric-stat-title">Order Webhook Tunnel</div>
-          </div>
-        </div>
-
-        <!-- Metric 4: Daily Digest Schedule -->
-        <div class="neu-box metric-stat-card">
-          <div class="metric-top-meta">
-            <div class="metric-icon-box">
-              <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <span class="metric-pill-tag pill-neutral">08:00 UTC</span>
-          </div>
-          <div>
-            <div class="metric-stat-value" style="font-size: 20px;">Daily 8 AM</div>
-            <div class="metric-stat-title">Automated Seller Email</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Central Analytics Section (Fluid Scaling Container) -->
-      <section class="neu-box analytics-box" id="analytics">
-        <div class="section-head-bar">
-          <div>
-            <h3>Store Activity &amp; Orders Velocity</h3>
-            <p>Real-time order trajectories across your connected Printify store</p>
-          </div>
-          <div class="period-toggle-group">
-            <button class="period-pill active">Orders Flow</button>
-            <button class="period-pill">Fulfillment</button>
-          </div>
-        </div>
-        <div class="analytics-canvas-frame">
-          <div class="status-placeholder-view">
+    <!-- Top Metrics Row (4-Grid -> 2x2 on Smaller Screens) -->
+    <section class="metrics-grid">
+      <!-- Metric 1: Recent Orders -->
+      <div class="metric-card">
+        <div class="metric-top-row">
+          <div class="metric-icon-wrap">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
             </svg>
-            <strong style="font-size: 13.5px; color: var(--text-main);" id="chartOrdersSummaryText">Awaiting store connection...</strong>
-            <p style="font-size: 12px; margin-top: 4px;" id="chartSubText">Connect your Printify store to render live order volume charts.</p>
           </div>
+          <span class="badge-pill badge-emerald">Live Feed</span>
         </div>
-      </section>
-
-      <!-- Store & Orders Management Section -->
-      <section class="neu-box orders-feed-card" id="ordersSection">
-        <!-- Connect View -->
-        <div id="connectView">
-          <h3>Connect Your Store</h3>
-          <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Link your Printify account to stream orders into your live feed.</p>
-          <p id="status" style="font-size: 12px; margin: 12px 0; color: var(--primary); font-weight: 600;">No stores connected yet.</p>
-          <button id="connectPrintifyBtn" class="neu-btn neu-btn-primary">+ Connect Printify Store</button>
-
-          <div id="printifyForm" style="display:none; margin-top: 14px;">
-            <label class="field-label">Printify API Token</label>
-            <input type="text" id="printifyToken" class="neu-input-field" placeholder="Paste your API token here">
-            <button id="savePrintifyBtn" class="neu-btn neu-btn-primary" style="margin-top: 10px;">Save Connection</button>
-          </div>
-        </div>
-
-        <!-- Store View -->
-        <div id="storeView" style="display:none;">
-          <div class="store-live-meta">
-            <div class="store-identity-group">
-              <h2 id="storeName" style="font-size: 18px; font-weight: 800;">Store</h2>
-              <span class="store-badge" id="storePlatform">Printify</span>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button id="registerWebhooksBtn" class="neu-btn">Enable live updates</button>
-              <button id="enablePushBtn" class="neu-btn neu-btn-primary">Enable alerts</button>
-            </div>
-          </div>
-
-          <p id="storeError" style="display:none; color: var(--accent-red); font-size: 12px; margin-bottom: 8px;"></p>
-          <p id="liveOrdersStatus" style="font-size: 12px; color: var(--text-muted);"></p>
-
-          <div id="liveOrdersList" class="orders-stream-box">
-            <p style="font-size: 12.5px; color: var(--text-sub); text-align: center; padding: 14px 0;">No orders yet. New Printify orders will appear here automatically.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Multi-Store & Digest Dispatch Bar -->
-      <section class="neu-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <div>
-          <h4 style="font-size: 14.5px; font-weight: 700;">Digest Dispatch &amp; Store Setup</h4>
-          <p style="font-size: 12px; color: var(--text-muted);">Send an immediate summary to your inbox or link additional stores.</p>
+          <div class="metric-val" id="orderCount">0</div>
+          <div class="metric-label">Printify Recent Orders</div>
+        </div>
+      </div>
+
+      <!-- Metric 2: Connected Stores -->
+      <div class="metric-card">
+        <div class="metric-top-row">
+          <div class="metric-icon-wrap">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <span class="badge-pill badge-indigo" id="metricStoreStatus">Ready</span>
+        </div>
+        <div>
+          <div class="metric-val" id="activeStoreCount">0</div>
+          <div class="metric-label">Connected Store(s)</div>
+        </div>
+      </div>
+
+      <!-- Metric 3: Realtime Tunnel -->
+      <div class="metric-card">
+        <div class="metric-top-row">
+          <div class="metric-icon-wrap">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          </div>
+          <span class="badge-pill badge-emerald" id="realtimeBadge">Online</span>
+        </div>
+        <div>
+          <div class="metric-val" style="font-size: 1.45rem;">Realtime</div>
+          <div class="metric-label">Order Webhook Tunnel</div>
+        </div>
+      </div>
+
+      <!-- Metric 4: Daily Digest Schedule -->
+      <div class="metric-card">
+        <div class="metric-top-row">
+          <div class="metric-icon-wrap">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <span class="badge-pill badge-indigo">08:00 UTC</span>
+        </div>
+        <div>
+          <div class="metric-val" style="font-size: 1.45rem;">Daily 8 AM</div>
+          <div class="metric-label">Automated Shop Digest</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Central Analytics & Store Activity Card -->
+    <section class="card" id="analytics">
+      <div class="section-header-row">
+        <div>
+          <h2>Store Activity &amp; Orders Velocity</h2>
+          <p>Real-time order synchronization with Printify merchant API</p>
         </div>
         <div style="display: flex; gap: 8px;">
-          <button id="sendDigestBtn" class="neu-btn neu-btn-primary">Email Me This Digest Now</button>
-          <button id="addStoreBtn" class="neu-btn">+ Add Another Store</button>
+          <button class="btn btn-primary" id="sendDigestBtn">Email Me Digest Now</button>
+          <button class="btn" id="addStoreBtn">+ Connect Store</button>
         </div>
+      </div>
 
-        <div id="addStoreForm" style="display:none; width: 100%; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(163, 177, 198, 0.25);">
-          <label class="field-label">New Store API Key</label>
-          <input type="text" id="newStoreApiKey" class="neu-input-field" placeholder="Paste your Printify token here">
-          <button id="connectNewStoreBtn" class="neu-btn neu-btn-primary" style="margin-top: 10px;">Connect New Store</button>
-          <p id="addStoreStatus" style="font-size: 12px; margin-top: 8px; color: var(--primary);"></p>
+      <div class="analytics-display-frame">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <strong id="chartOrdersSummaryText" style="font-size: 1.05rem; color: var(--text-main);">Awaiting store connection...</strong>
+        <p id="chartSubText" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Connect your Printify store to render live order trends and track production.</p>
+      </div>
+
+      <!-- Add Store Form (Toggled) -->
+      <div id="addStoreForm" style="display:none; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);">
+        <label class="field-tag">New Printify API Token</label>
+        <div style="display: flex; gap: 10px; margin-top: 6px;">
+          <input type="text" id="newStoreApiKey" class="input-field" placeholder="Paste your Printify token here">
+          <button id="connectNewStoreBtn" class="btn btn-primary" style="flex-shrink: 0;">Connect</button>
         </div>
-      </section>
+        <p id="addStoreStatus" style="font-size: 0.85rem; margin-top: 8px; color: var(--brand-primary); font-weight: 600;"></p>
+      </div>
+    </section>
 
-      <!-- POD Inspiration Section -->
-      <section class="neu-box" id="inspiration">
-        <div class="section-head-bar">
-          <div>
-            <h3>🔥 Trending T-Shirt Designs &amp; POD Ideas</h3>
-            <p id="showcaseNote">High-converting aesthetic concepts and bestseller mockups for your catalog.</p>
-          </div>
-          <div style="display: flex; gap: 6px;">
-            <button id="tshirtScrollLeft" class="neu-icon-button" aria-label="Scroll left">&larr;</button>
-            <button id="tshirtScrollRight" class="neu-icon-button" aria-label="Scroll right">&rarr;</button>
-          </div>
-        </div>
+    <!-- Store Live Orders Section -->
+    <section class="card">
+      <div id="connectView">
+        <h3>Connect Your Printify Store</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 14px;">Link your account with your personal Printify API token to start tracking orders.</p>
+        <p id="status" style="font-size: 0.85rem; margin-bottom: 10px; color: var(--brand-primary); font-weight: 600;">No stores connected yet.</p>
+        <button id="connectPrintifyBtn" class="btn btn-primary">+ Connect Printify Store</button>
 
-        <div class="showcase-slider-wrap" id="tshirtScrollContainer">
-          <div class="showcase-track-row" id="tshirtTrack">
-
-            <!-- Card 1 -->
-            <a class="pin-item-card" href="https://www.pinterest.com/pin/4604789963363929728/" target="_blank" rel="noopener noreferrer">
-              <div class="pin-badge-float">📌 Trend</div>
-              <div class="pin-mockup-frame">
-                <img src="/img/pin-1.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/6a/a8/19/6aa819396a09a65ffed5b2f2505f3cc3.jpg';" alt="Blondies London Skull" loading="lazy">
-              </div>
-              <div class="pin-info-details">
-                <h4>Blondies London Skull</h4>
-                <p class="pin-niche-text">Streetwear &amp; Vintage</p>
-                <div class="pin-pill-tags">
-                  <span class="tag-pill" style="color: #7c3aed;">55% Margin</span>
-                  <span class="tag-pill" style="color: #059669;">High Demand</span>
-                </div>
-              </div>
-            </a>
-
-            <!-- Card 2 -->
-            <a class="pin-item-card" href="https://www.pinterest.com/pin/675610381650524429/" target="_blank" rel="noopener noreferrer">
-              <div class="pin-badge-float">📌 Trend</div>
-              <div class="pin-mockup-frame">
-                <img src="/img/pin-2.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7c/fb/9f/7cfb9f0f17692cdb7e9f85d0e85f9fc1.jpg';" alt="Urban Vector" loading="lazy">
-              </div>
-              <div class="pin-info-details">
-                <h4>Urban Vector Art</h4>
-                <p class="pin-niche-text">Anime &amp; Cyber Street</p>
-                <div class="pin-pill-tags">
-                  <span class="tag-pill" style="color: #0284c7;">52% Margin</span>
-                  <span class="tag-pill" style="color: #ea580c;">Viral Hit</span>
-                </div>
-              </div>
-            </a>
-
-            <!-- Card 3 -->
-            <a class="pin-item-card" href="http://pinterest.com/pin/584271751692840579/" target="_blank" rel="noopener noreferrer">
-              <div class="pin-badge-float">📌 Trend</div>
-              <div class="pin-mockup-frame">
-                <img src="/img/pin-3.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/f8/f5/e2/f8f5e22089a0e26200941ca258436b9c.jpg';" alt="Dark Vintage Tee" loading="lazy">
-              </div>
-              <div class="pin-info-details">
-                <h4>Dark Vintage Graphic</h4>
-                <p class="pin-niche-text">Y2K &amp; Grunge Graphic</p>
-                <div class="pin-pill-tags">
-                  <span class="tag-pill" style="color: #7c3aed;">50% Margin</span>
-                  <span class="tag-pill" style="color: #059669;">Bestseller</span>
-                </div>
-              </div>
-            </a>
-
-            <!-- Card 4 -->
-            <a class="pin-item-card" href="https://www.pinterest.com/pin/503558802107444760/" target="_blank" rel="noopener noreferrer">
-              <div class="pin-badge-float">📌 Trend</div>
-              <div class="pin-mockup-frame">
-                <img src="/img/pin-4.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/1c/61/10/1c611087706f0f0c562e89bd64d59ec2.jpg';" alt="Glowing Ghosts" loading="lazy">
-              </div>
-              <div class="pin-info-details">
-                <h4>Spooky Glowing Ghosts</h4>
-                <p class="pin-niche-text">Halloween &amp; Cute Horror</p>
-                <div class="pin-pill-tags">
-                  <span class="tag-pill" style="color: #ea580c;">58% Margin</span>
-                  <span class="tag-pill" style="color: #0284c7;">Seasonal</span>
-                </div>
-              </div>
-            </a>
-
-            <!-- Card 5 -->
-            <a class="pin-item-card" href="https://www.pinterest.com/pin/153333562309965707/" target="_blank" rel="noopener noreferrer">
-              <div class="pin-badge-float">📌 Trend</div>
-              <div class="pin-mockup-frame">
-                <img src="/img/pin-5.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/bb/9f/46/bb9f46778eb5dd32ac3d8bd2f6319bdc.jpg';" alt="Pastel Collage" loading="lazy">
-              </div>
-              <div class="pin-info-details">
-                <h4>Spooky Pastel Collage</h4>
-                <p class="pin-niche-text">Autumn Aesthetic</p>
-                <div class="pin-pill-tags">
-                  <span class="tag-pill" style="color: #059669;">54% Margin</span>
-                  <span class="tag-pill" style="color: #7c3aed;">High Repeat</span>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- Seller Playbook Section -->
-      <section class="neu-box" id="playbook">
-        <div class="section-head-bar">
-          <div>
-            <h3>📖 Seller Playbook &amp; Store Growth Tactics</h3>
-            <p id="insightsNote">Battle-tested strategies for Print-on-Demand scaling.</p>
-          </div>
-        </div>
-
-        <div class="playbook-grid-row">
-          <div class="playbook-panel">
-            <h4>Product &amp; Pricing</h4>
-            <ul id="insightGrid">
-              <li>Bundle matching items to push average order value above $35.</li>
-              <li>Heavyweight oversized tees convert best on Etsy &amp; TikTok Shop right now.</li>
-              <li>Use natural mockup photography showing real apparel drape.</li>
-              <li>Price with room for seasonal 20% sales while keeping 40%+ margin.</li>
-            </ul>
-          </div>
-          <div class="playbook-panel">
-            <h4>Short-Form Video</h4>
-            <ul id="youtubeTips">
-              <li>Film 15-second fabric feel and print quality closeups.</li>
-              <li>Keep title under 50 characters with the exact product niche keyword.</li>
-              <li>Consistency wins: 3 clean Shorts a week outperforms sporadic posting.</li>
-              <li>Pin your shop link as the top comment on every upload.</li>
-            </ul>
-          </div>
-          <div class="playbook-panel">
-            <h4>Social &amp; Community</h4>
-            <ul id="instagramTips">
-              <li>Show order packing and behind-the-scenes store operations.</li>
-              <li>Use 5-7 targeted niche hashtags instead of generic ones.</li>
-              <li>Run Story polls asking followers to vote on upcoming design drops.</li>
-              <li>Direct message repeat customers with personalized thank-you perks.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2-Column Support & Account Management Section -->
-      <div class="support-account-grid" id="supportSection">
-        <!-- Clean Support Contact Form (Structured Grid) -->
-        <div class="neu-box contact-card-box">
-          <h3 style="font-size: 15px; font-weight: 700;">Contact Support</h3>
-          <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
-            Official direct email: <strong style="color: var(--primary);">support.sellytics@gmail.com</strong>
-          </p>
-
-          <form id="inlineSupportForm">
-            <div>
-              <label class="field-label" for="supportName">Your Name</label>
-              <input type="text" id="supportName" class="neu-input-field" placeholder="Alex Seller" required>
-            </div>
-            <div>
-              <label class="field-label" for="supportEmail">Your Email</label>
-              <input type="email" id="supportEmail" class="neu-input-field" placeholder="you@example.com" required>
-            </div>
-            <div class="form-full-col">
-              <label class="field-label" for="supportSubject">Subject</label>
-              <input type="text" id="supportSubject" class="neu-input-field" placeholder="Question regarding my store digest" required>
-            </div>
-            <div class="form-full-col">
-              <label class="field-label" for="supportMessage">Message</label>
-              <textarea id="supportMessage" class="neu-input-field" placeholder="How can our support team help you today?" required></textarea>
-            </div>
-            <div class="form-full-col">
-              <button type="submit" id="supportSubmitBtn" class="neu-btn neu-btn-primary" style="width: 100%; justify-content: center;">Send Support Message</button>
-              <p id="supportModalStatus" style="font-size: 12px; text-align: center; margin-top: 8px; font-weight: 600;"></p>
-            </div>
-          </form>
-        </div>
-
-        <!-- Account Controls & Session Card -->
-        <div class="neu-box" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <h3 style="font-size: 15px; font-weight: 700;">Merchant Account</h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;" id="panelUserEmail">Loading session...</p>
-            <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted); line-height: 1.6;">
-              <p>Active Seller Plan: <strong style="color: var(--primary);" id="panelUserName">Seller Pro</strong></p>
-              <p>Account ID: <span id="userEmailBadge" style="font-family: monospace; font-size: 11px;">seller</span></p>
-              <div style="display:none;" id="userAvatarBig"></div>
-            </div>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 20px;">
-            <button id="accountLogoutBtn" class="neu-btn" style="width: 100%; justify-content: center;">Log Out</button>
-            <button id="deleteAccountBtn" class="neu-btn neu-btn-danger" style="width: 100%; justify-content: center;">Delete Account &amp; Data</button>
+        <div id="printifyForm" style="display:none; margin-top: 16px;">
+          <label class="field-tag">Printify API Token</label>
+          <div style="display: flex; gap: 10px; margin-top: 6px;">
+            <input type="text" id="printifyToken" class="input-field" placeholder="Paste your token here">
+            <button id="savePrintifyBtn" class="btn btn-primary" style="flex-shrink: 0;">Save Connection</button>
           </div>
         </div>
       </div>
 
-      <!-- Clean Dashboard Footer -->
-      <footer class="clean-footer">
-        <nav>
-          <a href="/privacy.html">Privacy Policy</a>
-          <a href="/terms.html">Terms of Service</a>
-          <a href="/impressum.html">Impressum</a>
-          <a href="mailto:support.sellytics@gmail.com">support.sellytics@gmail.com</a>
-        </nav>
-        <p>The term 'Etsy' is a trademark of Etsy, Inc. This application is not endorsed or certified by Etsy.</p>
-      </footer>
+      <div id="storeView" style="display:none;">
+        <div class="section-header-row">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <h2 id="storeName">Store</h2>
+            <span class="badge-pill badge-indigo" id="storePlatform" style="text-transform: uppercase;">Printify</span>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button id="registerWebhooksBtn" class="btn">Enable live updates</button>
+            <button id="enablePushBtn" class="btn btn-primary">Enable alerts</button>
+          </div>
+        </div>
 
-    </main>
+        <p id="storeError" style="display:none; color: var(--rose); font-size: 0.85rem; margin-bottom: 10px;"></p>
+        <p id="liveOrdersStatus" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;"></p>
+
+        <div id="liveOrdersList" class="orders-stream-container">
+          <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 12px 0;">No orders yet. New Printify orders will appear here automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending POD Mockup Ideas Carousel -->
+    <section class="card">
+      <div class="section-header-row">
+        <div>
+          <h2>🔥 Trending T-Shirt Designs &amp; POD Ideas</h2>
+          <p id="showcaseNote">Bestselling aesthetic concepts and mockup ideas for your merchandise catalog.</p>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button id="tshirtScrollLeft" class="icon-btn" aria-label="Scroll left">&larr;</button>
+          <button id="tshirtScrollRight" class="icon-btn" aria-label="Scroll right">&rarr;</button>
+        </div>
+      </div>
+
+      <div class="slider-viewport" id="tshirtScrollContainer">
+        <div class="slider-track" id="tshirtTrack">
+
+          <a class="trend-card-item" href="https://www.pinterest.com/pin/4604789963363929728/" target="_blank" rel="noopener noreferrer">
+            <div class="trend-img-box">
+              <img src="/img/pin-1.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/6a/a8/19/6aa819396a09a65ffed5b2f2505f3cc3.jpg';" alt="Blondies London Skull" loading="lazy">
+            </div>
+            <div class="trend-info-meta">
+              <h4>Blondies London Skull</h4>
+              <p class="trend-niche-sub">Streetwear &amp; Vintage</p>
+              <div class="trend-pill-row">
+                <span class="micro-pill" style="color: #6366F1;">55% Margin</span>
+                <span class="micro-pill" style="color: #10B981;">High Demand</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="trend-card-item" href="https://www.pinterest.com/pin/675610381650524429/" target="_blank" rel="noopener noreferrer">
+            <div class="trend-img-box">
+              <img src="/img/pin-2.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/7c/fb/9f/7cfb9f0f17692cdb7e9f85d0e85f9fc1.jpg';" alt="Urban Vector" loading="lazy">
+            </div>
+            <div class="trend-info-meta">
+              <h4>Urban Vector Art</h4>
+              <p class="trend-niche-sub">Anime &amp; Cyber Street</p>
+              <div class="trend-pill-row">
+                <span class="micro-pill" style="color: #0284C7;">52% Margin</span>
+                <span class="micro-pill" style="color: #EA580C;">Viral Hit</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="trend-card-item" href="http://pinterest.com/pin/584271751692840579/" target="_blank" rel="noopener noreferrer">
+            <div class="trend-img-box">
+              <img src="/img/pin-3.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/f8/f5/e2/f8f5e22089a0e26200941ca258436b9c.jpg';" alt="Dark Vintage Graphic" loading="lazy">
+            </div>
+            <div class="trend-info-meta">
+              <h4>Dark Vintage Graphic</h4>
+              <p class="trend-niche-sub">Y2K &amp; Grunge</p>
+              <div class="trend-pill-row">
+                <span class="micro-pill" style="color: #6366F1;">50% Margin</span>
+                <span class="micro-pill" style="color: #10B981;">Bestseller</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="trend-card-item" href="https://www.pinterest.com/pin/503558802107444760/" target="_blank" rel="noopener noreferrer">
+            <div class="trend-img-box">
+              <img src="/img/pin-4.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/1c/61/10/1c611087706f0f0c562e89bd64d59ec2.jpg';" alt="Glowing Filter Ghosts" loading="lazy">
+            </div>
+            <div class="trend-info-meta">
+              <h4>Glowing Ghosts</h4>
+              <p class="trend-niche-sub">Halloween &amp; Cute Horror</p>
+              <div class="trend-pill-row">
+                <span class="micro-pill" style="color: #EA580C;">58% Margin</span>
+                <span class="micro-pill" style="color: #0284C7;">Seasonal</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="trend-card-item" href="https://www.pinterest.com/pin/153333562309965707/" target="_blank" rel="noopener noreferrer">
+            <div class="trend-img-box">
+              <img src="/img/pin-5.jpg" onerror="this.onerror=null;this.src='https://i.pinimg.com/736x/bb/9f/46/bb9f46778eb5dd32ac3d8bd2f6319bdc.jpg';" alt="Spooky Pastel Collage" loading="lazy">
+            </div>
+            <div class="trend-info-meta">
+              <h4>Spooky Pastel Collage</h4>
+              <p class="trend-niche-sub">Autumn Aesthetic</p>
+              <div class="trend-pill-row">
+                <span class="micro-pill" style="color: #10B981;">54% Margin</span>
+                <span class="micro-pill" style="color: #6366F1;">Repeat Hit</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Seller Playbook & Store Growth Tactics -->
+    <section class="card">
+      <div class="section-header-row">
+        <div>
+          <h2>📖 Seller Playbook &amp; Store Growth Tactics</h2>
+          <p id="insightsNote">Battle-tested strategies for scaling Print-on-Demand merchandise stores.</p>
+        </div>
+      </div>
+
+      <div class="playbook-columns-grid">
+        <div class="playbook-pane">
+          <h4>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+            </svg>
+            Product &amp; Pricing
+          </h4>
+          <ul id="insightGrid">
+            <li>Bundle complementary apparel designs to push average order value above $35.</li>
+            <li>Add oversized heavyweight tee options — currently dominating search trends.</li>
+            <li>Refresh mockups with natural lifestyle drape instead of flat-lays.</li>
+            <li>Price with room for seasonal 20% discounts while retaining healthy margins.</li>
+          </ul>
+        </div>
+
+        <div class="playbook-pane">
+          <h4>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            Short-Form Video
+          </h4>
+          <ul id="youtubeTips">
+            <li>Film 15-second fabric feel and print texture closeups for Shorts.</li>
+            <li>Keep video title under 50 characters with exact product niche keyword.</li>
+            <li>Maintain regular uploads: 3 focused shorts per week builds retention.</li>
+            <li>Pin your direct store checkout link in the comments.</li>
+          </ul>
+        </div>
+
+        <div class="playbook-pane">
+          <h4>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+            </svg>
+            Social &amp; Community
+          </h4>
+          <ul id="instagramTips">
+            <li>Post Reels showing behind-the-scenes packing and shipping routines.</li>
+            <li>Combine 5-8 focused niche tags rather than generic flooded ones.</li>
+            <li>Run Story polls asking followers to vote on upcoming graphic drops.</li>
+            <li>Direct message repeat buyers with personalized appreciation perks.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-Column Support & Account Section -->
+    <div class="support-account-split">
+      <!-- Contact Support Form -->
+      <div class="card">
+        <h3>Contact Support</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">
+          Direct verified email: <strong style="color: var(--brand-primary);">support.sellytics@gmail.com</strong>
+        </p>
+
+        <form id="inlineSupportForm" class="contact-form-layout">
+          <div>
+            <label class="field-tag" for="supportName">Your Name</label>
+            <input type="text" id="supportName" class="input-field" placeholder="Alex Seller" required>
+          </div>
+          <div>
+            <label class="field-tag" for="supportEmail">Your Email</label>
+            <input type="email" id="supportEmail" class="input-field" placeholder="you@example.com" required>
+          </div>
+          <div class="full-width-cell">
+            <label class="field-tag" for="supportSubject">Subject</label>
+            <input type="text" id="supportSubject" class="input-field" placeholder="Help with my Printify store connection" required>
+          </div>
+          <div class="full-width-cell">
+            <label class="field-tag" for="supportMessage">Message</label>
+            <textarea id="supportMessage" class="input-field" placeholder="How can our support team assist you today?" required></textarea>
+          </div>
+          <div class="full-width-cell">
+            <button type="submit" id="supportSubmitBtn" class="btn btn-primary" style="width: 100%;">Send Support Message</button>
+            <p id="supportModalStatus" style="font-size: 0.85rem; text-align: center; margin-top: 8px; font-weight: 600;"></p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Merchant Account Card -->
+      <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h3>Merchant Account</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;" id="panelUserEmail">Loading session...</p>
+          
+          <div style="margin-top: 16px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;">
+            <p>Seller Plan: <strong style="color: var(--brand-primary);" id="panelUserName">Seller Pro</strong></p>
+            <p>Account ID: <span id="userEmailBadge" style="font-family: monospace; font-size: 0.82rem;">seller</span></p>
+            <div style="display:none;" id="userAvatarBig"></div>
+            <div style="display:none;" id="reachNote"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+          <button id="accountLogoutBtn" class="btn" style="width: 100%;">Log Out</button>
+          <button id="deleteAccountBtn" class="btn btn-danger" style="width: 100%;">Delete Account &amp; Data</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clean Dashboard Footer -->
+    <footer class="page-footer">
+      <nav>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="mailto:support.sellytics@gmail.com">support.sellytics@gmail.com</a>
+      </nav>
+      <p>The term 'Etsy' is a trademark of Etsy, Inc. This application uses Etsy &amp; Printify APIs, but is not endorsed or certified by Etsy.</p>
+    </footer>
 
   </div>
 
   <!-- iOS Install Hint -->
-  <div id="iosInstallHint" class="neu-box" style="display:none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 1000; align-items: center; justify-content: space-between;" role="note">
+  <div id="iosInstallHint" class="card" style="display:none; position: fixed; bottom: 20px; left: 20px; right: 20px; z-index: 1000; align-items: center; justify-content: space-between;" role="note">
     <div>
-      <strong style="font-size: 13px;">Add Sellytics to your Home Screen</strong>
-      <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Tap Share &rarr; Choose “Add to Home Screen” for native push alerts.</p>
+      <strong style="font-size: 0.9rem;">Add Sellytics to your Home Screen</strong>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Tap Share &rarr; Choose “Add to Home Screen” for native push alerts.</p>
     </div>
-    <button type="button" id="iosInstallDismiss" class="neu-btn">Got it</button>
+    <button type="button" id="iosInstallDismiss" class="btn">Got it</button>
   </div>
 
   <!-- Scripts -->
